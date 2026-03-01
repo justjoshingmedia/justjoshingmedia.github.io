@@ -33,7 +33,7 @@ margin-bottom: 16px;
 }
 
 .logo-crown {
-height: 52px;
+height: 120px;
 width: auto;
 }
 
@@ -41,11 +41,12 @@ width: auto;
 display: flex;
 flex-direction: column;
 align-items: center;
-gap: 1px;
+gap: 0px;
+margin-top: -8px;
 }
-.logo-just   { font-size: 8px;  font-weight: 300; letter-spacing: 0.5em;  text-transform: uppercase; color: var(–muted); }
-.logo-joshing{ font-size: 16px; font-weight: 900; letter-spacing: 0.1em;  text-transform: uppercase; }
-.logo-media  { font-size: 7px;  font-weight: 300; letter-spacing: 0.55em; text-transform: uppercase; color: var(–muted); }
+.logo-just   { font-size: 9px;  font-weight: 700; letter-spacing: 0.45em;  text-transform: uppercase; color: var(–text); }
+.logo-joshing{ font-size: 22px; font-weight: 900; letter-spacing: 0.1em;   text-transform: uppercase; }
+.logo-media  { font-size: 8px;  font-weight: 700; letter-spacing: 0.5em;   text-transform: uppercase; color: var(–text); }
 
 nav {
 display: flex;
@@ -190,7 +191,7 @@ nav a { font-size: 9px; }
       <a onclick="filter('football',this)">Football</a>
       <a onclick="filter('other',this)">Other</a>
     </nav>
-    <a class="contact-link" href="mailto:justjoshingmedia@gmail.com">Contact</a>
+    <a class="contact-link" href="/cdn-cgi/l/email-protection#c2a8b7b1b6a8adb1aaabaca5afa7a6aba382a5afa3abaeeca1adaf">Contact</a>
   </div>
 </header>
 
@@ -216,70 +217,59 @@ nav a { font-size: 9px; }
   <div class="modal-note">After payment, your gallery link will be sent directly to you.</div>
 </div>
 
-<script>
-  // ── UPDATE VENMO HANDLE HERE ──
-  const VENMO = "justjoshing615";
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
-  // ── YOUR PEOPLE ──
-  const people = [
-    { name:"Ayden Meadows", count:2140, sport:"basketball", price:25, img:"" },
-    { name:"Weston Hall",   count:1952, sport:"basketball", price:25, img:"" },
-    { name:"Houston Bogle", count:1922, sport:"basketball", price:25, img:"" },
-    { name:"Simon",         count:1638, sport:"basketball", price:25, img:"" },
-    { name:"Mont",          count:1487, sport:"basketball", price:25, img:"" },
-    { name:"Aiden Bush",    count:1455, sport:"basketball", price:25, img:"" },
-    { name:"Ford Procter",  count:1198, sport:"basketball", price:25, img:"" },
-    { name:"Chris Jordan",  count:1115, sport:"basketball", price:25, img:"" },
-    { name:"Dallas",        count: 459, sport:"basketball", price:25, img:"" },
-  ];
+// ── UPDATE VENMO HANDLE HERE ──
+const VENMO = “justjoshing615”;
 
-  function initials(n) { return n.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(); }
+// ── YOUR PEOPLE ──
+const people = [
+{ name:“Ayden Meadows”, count:2140, sport:“basketball”, price:25, img:”” },
+{ name:“Weston Hall”,   count:1952, sport:“basketball”, price:25, img:”” },
+{ name:“Houston Bogle”, count:1922, sport:“basketball”, price:25, img:”” },
+{ name:“Simon”,         count:1638, sport:“basketball”, price:25, img:”” },
+{ name:“Mont”,          count:1487, sport:“basketball”, price:25, img:”” },
+{ name:“Aiden Bush”,    count:1455, sport:“basketball”, price:25, img:”” },
+{ name:“Ford Procter”,  count:1198, sport:“basketball”, price:25, img:”” },
+{ name:“Chris Jordan”,  count:1115, sport:“basketball”, price:25, img:”” },
+{ name:“Dallas”,        count: 459, sport:“basketball”, price:25, img:”” },
+];
 
-  let currentFilter = 'all';
+function initials(n) { return n.split(’ ‘).map(w=>w[0]).join(’’).substring(0,2).toUpperCase(); }
 
-  function filter(sport, el) {
-    currentFilter = sport;
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-    if (el) el.classList.add('active');
-    render();
-  }
+let currentFilter = ‘all’;
 
-  function render() {
-    const grid = document.getElementById('grid');
-    const list = people.filter(p => currentFilter === 'all' || p.sport === currentFilter);
-    grid.innerHTML = '';
-    if (!list.length) { grid.innerHTML = '<div class="empty">No athletes in this category yet</div>'; return; }
-    list.forEach(p => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.onclick = () => openModal(p);
-      card.innerHTML = `
-        <div class="avatar">${p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name)}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-count">${p.count.toLocaleString()} photos</div>
-      `;
-      grid.appendChild(card);
-    });
-  }
+function filter(sport, el) {
+currentFilter = sport;
+document.querySelectorAll(‘nav a’).forEach(a => a.classList.remove(‘active’));
+if (el) el.classList.add(‘active’);
+render();
+}
 
-  function openModal(p) {
-    const av = document.getElementById('modal-avatar');
-    av.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name);
-    document.getElementById('modal-name').textContent  = p.name;
-    document.getElementById('modal-count').textContent = `${p.count.toLocaleString()} photos available`;
-    document.getElementById('modal-price').textContent = `$${p.price}`;
-    const note = encodeURIComponent(`${p.name} — Just Joshing Media`);
-    document.getElementById('venmo-link').href = `https://venmo.com/${VENMO}?txn=pay&amount=${p.price}&note=${note}`;
-    document.getElementById('modal').classList.add('open');
-  }
+function render() {
+const grid = document.getElementById(‘grid’);
+const list = people.filter(p => currentFilter === ‘all’ || p.sport === currentFilter);
+grid.innerHTML = ‘’;
+if (!list.length) { grid.innerHTML = ‘<div class="empty">No athletes in this category yet</div>’; return; }
+list.forEach(p => {
+const card = document.createElement(‘div’);
+card.className = ‘card’;
+card.onclick = () => openModal(p);
+card.innerHTML = `<div class="avatar">${p.img ?`<img src="${p.img}" alt="${p.name}">`: initials(p.name)}</div> <div class="card-name">${p.name}</div> <div class="card-count">${p.count.toLocaleString()} photos</div>`;
+grid.appendChild(card);
+});
+}
 
-  function closeModal() { document.getElementById('modal').classList.remove('open'); }
-  document.getElementById('modal').addEventListener('click', e => {
-    if (e.target === document.getElementById('modal')) closeModal();
-  });
+function openModal(p) {
+const av = document.getElementById(‘modal-avatar’);
+av.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name);
+document.getElementById(‘modal-name’).textContent  = p.name;
+document.getElementById(‘modal-count’).textContent = `${p.count.toLocaleString()} photos available`;
+document.getElementById(‘modal-price’).textContent = `$${p.price}`;
+const note = encodeURIComponent(`${p.name} — Just Joshing Media`);
+document.getElementById(‘venmo-link’).href = `https://venmo.com/${VENMO}?txn=pay&amount=${p.price}&note=${note}`;
+document.getElementById(‘modal’).classList.add(‘open’);
+}
 
-  render();
-</script>
-
-</body>
-</html>
+function closeModal() { document.getElementById(‘modal’).classList.remove(‘open’); }
+document.getElementById
