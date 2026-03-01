@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-:root { --bg:#fff; --text:#000; --muted:#999; --border:#e8e8e8; }
+:root { --bg:#fff; --text:#000; --muted:#999; }
 body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-serif; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden; }
 #intro { position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.7s; }
 #intro.out { opacity:0; pointer-events:none; }
@@ -70,7 +70,6 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .ab-crown { height:56px; margin-bottom:24px; }
 .ab-intro { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.3em; text-transform:uppercase; text-align:center; margin-bottom:24px; line-height:1.8; }
 .ab-stmt { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; text-transform:uppercase; text-align:center; line-height:1.2; margin-bottom:44px; }
-.ab-div { width:40px; height:1px; background:var(--border); margin-bottom:40px; }
 .ab-block { margin-bottom:36px; text-align:center; width:100%; }
 .ab-title { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:10px; }
 .ab-body { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.06em; line-height:2.2; color:#888; max-width:380px; margin:0 auto; }
@@ -187,7 +186,6 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <img class="ab-crown" src="Logo_png.PNG" alt="">
     <div class="ab-intro">We define a standard.</div>
     <div class="ab-stmt">Memories and content,<br>with intention.</div>
-    <div class="ab-div"></div>
     <div class="ab-block">
       <div class="ab-title">Film &amp; Motion</div>
       <div class="ab-body">High-impact edits built for attention. Game film, recruitment clips, short reels, full-game coverage. Motion captures energy, pace, emotion, and presence. Photography captures the defining moment.</div>
@@ -200,7 +198,6 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <div class="ab-title">Business &amp; Beyond</div>
       <div class="ab-body">Commercials that move product. Reality and documentary work that tells a story. Corporate content with a cinematic standard. From brand launches to full productions — if it needs to be seen, it needs to be done right.</div>
     </div>
-    <div class="ab-div"></div>
     <div class="ab-close">Performance documentation.<br>Cinematic standard.</div>
   </div>
   <footer class="ftr">
