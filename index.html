@@ -1,449 +1,176 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Just Joshing Media</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  :root { --bg:#ffffff; --text:#000000; --muted:#bbbbbb; --border:#e8e8e8; }
+* { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#fff; --text:#000; --muted:#bbb; --border:#e8e8e8; }
+body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-serif; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden; }
 
-body {
-background: var(–bg);
-color: var(–text);
-font-family: ‘Bebas Neue’, sans-serif;
-min-height: 100vh;
-overflow-x: hidden;
-}
+/* INTRO */
+#intro { position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.7s; }
+#intro.out { opacity:0; pointer-events:none; }
+#intro-crown { height:110px; opacity:0; transform:translateY(8px); transition:opacity 0.8s, transform 0.8s; }
+#intro-crown.show { opacity:1; transform:translateY(0); }
+#intro-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.22em; opacity:0; transition:opacity 0.8s 0.4s; }
+#intro-name.show { opacity:1; }
 
-/* ── INTRO ── */
-#intro {
-position: fixed; inset: 0; background: var(–bg);
-z-index: 999; display: flex; flex-direction: column;
-align-items: center; justify-content: center; gap: 16px;
-transition: opacity 0.7s ease;
-}
-#intro.fade-out { opacity: 0; pointer-events: none; }
+/* HEADER */
+.hdr { background:var(--bg); flex-shrink:0; }
+.hdr-top { display:flex; align-items:stretch; border-bottom:1px solid var(--border); min-height:64px; }
+.hdr-crown { display:flex; align-items:center; padding:8px 16px; border-right:1px solid var(--border); cursor:pointer; }
+.hdr-crown img { height:48px; width:auto; display:block; }
+.hdr-mid { flex:1; display:flex; align-items:center; justify-content:center; }
+.hdr-brand { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.22em; }
+.hdr-space { min-width:80px; border-left:1px solid var(--border); }
 
-#intro-crown {
-height: 100px; width: auto;
-opacity: 0; transform: translateY(8px);
-transition: opacity 0.8s ease, transform 0.8s ease;
-}
-#intro-crown.visible { opacity: 1; transform: translateY(0); }
+.hdr-nav { display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); overflow-x:auto; scrollbar-width:none; }
+.hdr-nav::-webkit-scrollbar { display:none; }
+.hdr-nav a { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); padding:9px 18px; border-right:1px solid var(--border); cursor:pointer; transition:color 0.2s; white-space:nowrap; }
+.hdr-nav a:last-child { border-right:none; }
+.hdr-nav a.on, .hdr-nav a:hover { color:var(--text); }
 
-#intro-name {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 20px; letter-spacing: 0.22em;
-text-transform: uppercase; color: var(–text);
-opacity: 0; transition: opacity 0.8s ease 0.4s;
-}
-#intro-name.visible { opacity: 1; }
+.hdr-sub { display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); }
+.hdr-sub a, .hdr-sub button { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); background:none; border:none; cursor:pointer; padding:8px 28px; border-right:1px solid var(--border); transition:color 0.2s; }
+.hdr-sub a:last-child, .hdr-sub button:last-child { border-right:none; }
+.hdr-sub a:hover, .hdr-sub button:hover { color:var(--text); }
 
-/* ── HEADER ── */
-.site-header { background: var(–bg); }
+.sticky { position:sticky; top:0; z-index:100; background:var(--bg); }
 
-.header-top {
-display: flex; align-items: stretch;
-border-bottom: 1px solid var(–border);
-min-height: 52px;
-}
+/* GRID */
+#wrap { flex:1; }
+.grid { display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--border); }
+.card { background:var(--bg); cursor:pointer; overflow:hidden; }
+.card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.card-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:filter 0.4s, transform 0.4s; }
+.card:hover .card-img img { filter:grayscale(0%); transform:scale(1.03); }
+.card-init { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.08em; color:#ddd; }
+.card-info { padding:8px 8px 12px; text-align:center; }
+.card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.14em; margin-bottom:3px; color:var(--text); opacity:0.4; transition:opacity 0.3s; }
+.card:hover .card-name { opacity:1; }
+.card-count { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); opacity:0.4; transition:opacity 0.3s; }
+.card:hover .card-count { opacity:1; }
 
-.header-crown-wrap {
-display: flex; align-items: center;
-padding: 8px 14px;
-border-right: 1px solid var(–border);
-cursor: pointer; flex-shrink: 0;
-}
-.header-crown { height: 36px; width: auto; display: block; }
+/* EMPTY */
+.empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(--bg); }
+.empty span { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.3em; color:var(--muted); }
 
-.header-brand-wrap {
-flex: 1; display: flex; align-items: center;
-justify-content: center; padding: 10px 16px;
-}
-.header-brand {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 18px; letter-spacing: 0.2em;
-text-transform: uppercase; color: var(–text);
-text-align: center;
-}
+/* FOOTER */
+.ftr { border-top:1px solid var(--border); padding:28px 24px 20px; display:flex; flex-direction:column; align-items:center; gap:10px; flex-shrink:0; }
+.ftr-quote { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:300; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:500px; line-height:2; transition:opacity 0.6s; min-height:20px; }
+.ftr-quote.out { opacity:0; }
+.ftr-copy { font-family:'Montserrat',sans-serif; font-size:8px; letter-spacing:0.14em; text-transform:uppercase; color:#ddd; }
 
-.sticky-nav {
-position: sticky; top: 0; z-index: 100;
-background: var(–bg);
-}
+/* MODAL — full screen overlay, always on top */
+.modal { display:none; position:fixed; inset:0; z-index:500; background:var(--bg); flex-direction:column; overflow-y:auto; }
+.modal.open { display:flex; }
 
-.header-nav-main {
-display: flex; align-items: center;
-justify-content: center;
-border-bottom: 1px solid var(–border);
-overflow-x: auto; scrollbar-width: none; gap: 0;
-}
-.header-nav-main::-webkit-scrollbar { display: none; }
+/* modal uses same header structure */
+.modal .hdr-crown { cursor:pointer; }
 
-.header-nav-main a {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 12px; letter-spacing: 0.16em;
-text-transform: uppercase; text-decoration: none;
-color: var(–muted); cursor: pointer;
-transition: color 0.2s; padding: 8px 16px;
-white-space: nowrap; display: flex; align-items: center;
-border-right: 1px solid var(–border);
-}
-.header-nav-main a:last-child { border-right: none; }
-.header-nav-main a.active,
-.header-nav-main a:hover { color: var(–text); }
+.modal-body { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px 40px; }
 
-.header-nav-bottom {
-display: flex; align-items: center;
-justify-content: center;
-border-bottom: 1px solid var(–border); gap: 0;
-}
+/* purchase modal */
+.m-img { width:140px; aspect-ratio:4/5; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:18px; }
+.m-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
+.m-init { font-family:'Bebas Neue',sans-serif; font-size:32px; color:#ddd; }
+.m-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.18em; margin-bottom:4px; }
+.m-count { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+.m-price { font-family:'Bebas Neue',sans-serif; font-size:36px; letter-spacing:0.1em; opacity:0; transition:opacity 0.9s 0.5s; }
+.m-price.show { opacity:1; }
+.m-notes { margin:14px 0 22px; text-align:center; max-width:280px; }
+.m-raw { font-family:'Montserrat',sans-serif; font-size:8px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); line-height:2.2; margin-bottom:5px; }
+.m-edit { font-family:'Montserrat',sans-serif; font-size:8px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); line-height:2.2; margin-bottom:5px; }
+.m-custom { font-family:'Montserrat',sans-serif; font-size:8px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); line-height:2.2; cursor:pointer; text-decoration:underline; text-underline-offset:3px; }
+.m-div { width:40px; height:1px; background:var(--border); margin-bottom:20px; }
+.m-inst { font-family:'Montserrat',sans-serif; font-size:8px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:240px; line-height:2.4; margin-bottom:18px; }
+.m-inst strong { color:var(--text); font-weight:700; }
+.venmo { display:inline-flex; align-items:center; gap:10px; background:#000; color:#fff; padding:13px 32px; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; margin-bottom:10px; border:none; cursor:pointer; }
+.venmo:hover { opacity:0.75; }
+.m-note { font-family:'Montserrat',sans-serif; font-size:7px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:220px; line-height:2.2; }
 
-.header-nav-bottom a,
-.header-nav-bottom button {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 12px; letter-spacing: 0.16em;
-text-transform: uppercase; text-decoration: none;
-color: var(–muted); background: none; border: none;
-font-family: ‘Bebas Neue’, sans-serif;
-cursor: pointer; transition: color 0.2s;
-padding: 7px 24px; display: flex; align-items: center;
-border-right: 1px solid var(–border);
-}
-.header-nav-bottom a:last-child,
-.header-nav-bottom button:last-child { border-right: none; }
-.header-nav-bottom a:hover,
-.header-nav-bottom button:hover { color: var(–text); }
+/* about modal */
+.about-body { flex:1; display:flex; flex-direction:column; align-items:center; padding:48px 24px 60px; max-width:520px; margin:0 auto; width:100%; }
+.ab-crown { height:56px; margin-bottom:24px; }
+.ab-intro { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.3em; text-align:center; margin-bottom:24px; line-height:1.8; }
+.ab-stmt { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; text-align:center; line-height:1.2; margin-bottom:44px; }
+.ab-div { width:40px; height:1px; background:var(--border); margin-bottom:40px; }
+.ab-block { margin-bottom:36px; text-align:center; width:100%; }
+.ab-title { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.3em; margin-bottom:10px; }
+.ab-body { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.06em; line-height:2.2; color:var(--muted); max-width:380px; margin:0 auto; }
+.ab-close { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.3em; text-align:center; margin-top:16px; line-height:2; }
 
-/* ── MAIN CONTENT ── */
-#main-content { opacity: 0; transition: opacity 0.6s ease; }
-#main-content.visible { opacity: 1; }
-
-/* ── GRID ── */
-.grid {
-display: grid;
-grid-template-columns: repeat(6, 1fr);
-gap: 1px; background: var(–border);
-}
-
-.card {
-background: var(–bg);
-cursor: pointer; overflow: hidden;
-}
-
-.card-img {
-width: 100%; aspect-ratio: 4/5;
-background: #ffffff;
-display: flex; align-items: center;
-justify-content: center; overflow: hidden;
-}
-.card-img img {
-width: 100%; height: 100%; object-fit: cover;
-filter: grayscale(100%);
-transition: filter 0.4s, transform 0.4s;
-}
-.card:hover .card-img img { filter: grayscale(0%); transform: scale(1.03); }
-
-.card-initials {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 20px; letter-spacing: 0.08em; color: #dddddd;
-}
-
-.card-info {
-padding: 6px 8px 10px; text-align: center;
-}
-
-.card-name {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 11px; letter-spacing: 0.14em;
-text-transform: uppercase; margin-bottom: 2px;
-color: var(–text); opacity: 0.45; transition: opacity 0.3s;
-}
-.card:hover .card-name { opacity: 1; }
-
-.card-count {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 7px; font-weight: 400; letter-spacing: 0.1em;
-text-transform: uppercase; color: var(–muted);
-opacity: 0.45; transition: opacity 0.3s;
-}
-.card:hover .card-count { opacity: 1; }
-
-/* ── EMPTY STATE ── */
-.empty {
-grid-column: 1/-1; display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-padding: 100px 20px; background: var(–bg);
-}
-.empty-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 16px; letter-spacing: 0.3em; text-transform: uppercase;
-color: var(–muted);
-}
-
-/* ── FOOTER ── */
-.site-footer {
-border-top: 1px solid var(–border);
-padding: 28px 24px 20px;
-display: flex; flex-direction: column;
-align-items: center; gap: 10px;
-background: var(–bg);
-}
-
-.footer-quote {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 9px; font-weight: 300; letter-spacing: 0.14em;
-text-transform: uppercase; color: var(–muted);
-text-align: center; max-width: 480px; line-height: 2;
-min-height: 32px;
-transition: opacity 0.6s ease;
-}
-.footer-quote.hidden { opacity: 0; }
-
-.footer-copy {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 400; letter-spacing: 0.14em;
-text-transform: uppercase; color: #dddddd;
-}
-
-/* ── MODAL OVERLAY ── */
-.modal-overlay {
-display: none; position: fixed; inset: 0;
-background: var(–bg); z-index: 200;
-flex-direction: column; overflow-y: auto;
-}
-.modal-overlay.open { display: flex; }
-
-.modal-site-header { flex-shrink: 0; }
-
-.modal-body {
-flex: 1; display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-padding: 48px 24px 40px;
-}
-
-/* ── PURCHASE MODAL ── */
-.modal-card-img {
-width: 140px; aspect-ratio: 4/5;
-background: #ffffff; border: 1px solid var(–border);
-display: flex; align-items: center; justify-content: center;
-overflow: hidden; margin-bottom: 18px;
-}
-.modal-card-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); }
-.modal-card-initials {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 32px; letter-spacing: 0.05em; color: #dddddd;
-}
-
-.modal-name {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 20px; letter-spacing: 0.18em;
-text-transform: uppercase; margin-bottom: 4px;
-}
-.modal-count {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 400; letter-spacing: 0.14em;
-text-transform: uppercase; color: var(–muted); margin-bottom: 4px;
-}
-.modal-price {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 34px; letter-spacing: 0.1em; margin-bottom: 0;
-opacity: 0; transition: opacity 0.9s ease 0.5s;
-}
-.modal-price.revealed { opacity: 1; }
-
-.modal-info-block {
-margin-top: 12px; margin-bottom: 24px;
-text-align: center; max-width: 280px;
-}
-.modal-raw-note {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 400; letter-spacing: 0.1em;
-text-transform: uppercase; color: var(–muted);
-line-height: 2.2; margin-bottom: 6px;
-}
-.modal-edit-note {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 400; letter-spacing: 0.1em;
-text-transform: uppercase; color: var(–muted);
-line-height: 2.2; margin-bottom: 6px;
-}
-.modal-custom-note {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 600; letter-spacing: 0.12em;
-text-transform: uppercase; color: var(–text);
-line-height: 2.2; cursor: pointer;
-text-decoration: underline; text-underline-offset: 3px;
-}
-
-.modal-divider { width: 40px; height: 1px; background: var(–border); margin-bottom: 22px; }
-
-.modal-instructions {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 400; letter-spacing: 0.1em;
-text-transform: uppercase; color: var(–muted);
-text-align: center; max-width: 240px; line-height: 2.4; margin-bottom: 18px;
-}
-.modal-instructions strong { color: var(–text); font-weight: 700; }
-
-.venmo-btn {
-display: inline-flex; align-items: center; gap: 10px;
-background: #000000; color: white; padding: 13px 32px;
-font-family: ‘Bebas Neue’, sans-serif; font-size: 14px;
-letter-spacing: 0.2em; text-transform: uppercase;
-text-decoration: none; transition: opacity 0.2s; margin-bottom: 10px;
-border: none; cursor: pointer;
-}
-.venmo-btn:hover { opacity: 0.75; }
-
-.modal-note {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase;
-color: var(–muted); text-align: center; max-width: 220px; line-height: 2.2;
-}
-
-/* ── MODAL FOOTER ── */
-.modal-footer {
-border-top: 1px solid var(–border);
-padding: 20px 24px 16px;
-display: flex; flex-direction: column;
-align-items: center; gap: 8px;
-flex-shrink: 0;
-}
-.modal-footer-quote {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 8px; font-weight: 300; letter-spacing: 0.14em;
-text-transform: uppercase; color: var(–muted);
-text-align: center; max-width: 400px; line-height: 2;
-}
-.modal-footer-copy {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 7px; font-weight: 400; letter-spacing: 0.14em;
-text-transform: uppercase; color: #dddddd;
-}
-
-/* ── ABOUT MODAL ── */
-.about-body {
-flex: 1; display: flex; flex-direction: column;
-align-items: center; padding: 48px 24px 60px;
-max-width: 520px; margin: 0 auto; width: 100%;
-}
-
-.about-crown { height: 56px; width: auto; margin-bottom: 24px; }
-
-.about-intro {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 15px; letter-spacing: 0.3em;
-text-transform: uppercase; color: var(–text);
-text-align: center; margin-bottom: 24px; line-height: 1.8;
-}
-
-.about-statement {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 28px; letter-spacing: 0.06em;
-text-transform: uppercase; text-align: center;
-line-height: 1.2; margin-bottom: 44px; color: var(–text);
-}
-
-.about-divider { width: 40px; height: 1px; background: var(–border); margin-bottom: 40px; }
-
-.about-block { margin-bottom: 36px; text-align: center; width: 100%; }
-
-.about-block-title {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 13px; letter-spacing: 0.3em;
-text-transform: uppercase; margin-bottom: 10px; color: var(–text);
-}
-
-.about-block-body {
-font-family: ‘Montserrat’, sans-serif;
-font-size: 10px; font-weight: 300; letter-spacing: 0.06em;
-line-height: 2.2; color: var(–muted); max-width: 380px; margin: 0 auto;
-}
-
-.about-closer {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 13px; letter-spacing: 0.3em;
-text-transform: uppercase; text-align: center;
-margin-top: 16px; color: var(–text); line-height: 2;
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(4, 1fr); } }
-@media (max-width: 600px) {
-.header-brand { font-size: 14px; }
-.header-nav-main a { font-size: 10px; padding: 8px 10px; }
-.header-nav-bottom a, .header-nav-bottom button { font-size: 10px; padding: 7px 16px; }
-.grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 400px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+/* responsive */
+@media(max-width:900px) { .grid { grid-template-columns:repeat(4,1fr); } }
+@media(max-width:600px) { .hdr-brand { font-size:16px; } .hdr-nav a { font-size:11px; padding:8px 12px; } .grid { grid-template-columns:repeat(3,1fr); } }
+@media(max-width:400px) { .grid { grid-template-columns:repeat(2,1fr); } }
 </style>
-
 </head>
 <body>
 
 <!-- INTRO -->
-
 <div id="intro">
-  <img id="intro-crown" src="Logo_png.PNG" alt="Just Joshing Media">
+  <img id="intro-crown" src="Logo_png.PNG" alt="">
   <div id="intro-name">Just Joshing Media</div>
 </div>
 
-<!-- MAIN -->
+<!-- PAGE -->
+<div id="page" style="display:flex;flex-direction:column;flex:1;">
 
-<div id="main-content">
-
-  <div class="site-header">
-    <div class="header-top">
-      <div class="header-crown-wrap" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <img class="header-crown" src="Logo_png.PNG" alt="Just Joshing Media">
+  <!-- HEADER (non-sticky brand row) -->
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-crown" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <img src="Logo_png.PNG" alt="">
       </div>
-      <div class="header-brand-wrap">
-        <div class="header-brand">Just Joshing Media</div>
-      </div>
+      <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
+      <div class="hdr-space"></div>
     </div>
   </div>
 
-  <div class="sticky-nav" id="sticky-nav">
-    <div class="header-nav-main">
-      <a class="active" onclick="filter('all',this)">All</a>
+  <!-- STICKY NAV -->
+  <div class="sticky">
+    <div class="hdr-nav">
+      <a class="on" onclick="filter('all',this)">All</a>
       <a onclick="filter('basketball',this)">Basketball</a>
       <a onclick="filter('football',this)">Football</a>
       <a onclick="filter('film',this)">Film</a>
       <a onclick="filter('commercial',this)">Commercial</a>
       <a onclick="filter('events',this)">Events</a>
     </div>
-    <div class="header-nav-bottom">
+    <div class="hdr-sub">
       <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="openAbout()">About</button>
     </div>
   </div>
 
-  <div class="grid" id="grid"></div>
+  <!-- GRID -->
+  <div id="wrap">
+    <div class="grid" id="grid"></div>
+  </div>
 
-  <footer class="site-footer">
-    <div class="footer-quote" id="footer-quote"></div>
-    <div class="footer-copy">&copy; Just Joshing Media</div>
+  <!-- FOOTER -->
+  <footer class="ftr">
+    <div class="ftr-quote" id="fq"></div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
   </footer>
 
 </div>
 
 <!-- PURCHASE MODAL -->
-
-<div class="modal-overlay" id="modal">
-  <div class="modal-site-header">
-    <div class="header-top">
-      <div class="header-crown-wrap" onclick="closeModal()">
-        <img class="header-crown" src="Logo_png.PNG" alt="Just Joshing Media">
+<div class="modal" id="pm">
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-crown" onclick="closeModal()">
+        <img src="Logo_png.PNG" alt="">
       </div>
-      <div class="header-brand-wrap">
-        <div class="header-brand">Just Joshing Media</div>
-      </div>
+      <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
+      <div class="hdr-space"></div>
     </div>
-    <div class="header-nav-main">
+    <div class="hdr-nav">
       <a onclick="closeModal();filter('all',null)">All</a>
       <a onclick="closeModal();filter('basketball',null)">Basketball</a>
       <a onclick="closeModal();filter('football',null)">Football</a>
@@ -451,53 +178,46 @@ margin-top: 16px; color: var(–text); line-height: 2;
       <a onclick="closeModal();filter('commercial',null)">Commercial</a>
       <a onclick="closeModal();filter('events',null)">Events</a>
     </div>
-    <div class="header-nav-bottom">
+    <div class="hdr-sub">
       <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="closeModal();openAbout()">About</button>
     </div>
   </div>
-
   <div class="modal-body">
-    <div class="modal-card-img" id="modal-img"></div>
-    <div class="modal-name"  id="modal-name"></div>
-    <div class="modal-count" id="modal-count"></div>
-    <div class="modal-price" id="modal-price"></div>
-    <div class="modal-info-block">
-      <div class="modal-raw-note">Most images are delivered raw and unedited. Editing available upon request.</div>
-      <div class="modal-edit-note">Standard edits — $20 per 10 photos. Include photo numbers when contacting.</div>
-      <div class="modal-custom-note" id="modal-contact-link">Custom creative content? Let's talk — tap Contact.</div>
+    <div class="m-img" id="pm-img"></div>
+    <div class="m-name" id="pm-name"></div>
+    <div class="m-count" id="pm-count"></div>
+    <div class="m-price" id="pm-price"></div>
+    <div class="m-notes">
+      <div class="m-raw">Most images are delivered raw and unedited. Editing available upon request.</div>
+      <div class="m-edit">Standard edits — $20 per 10 photos. Include photo numbers when contacting.</div>
+      <div class="m-custom" id="pm-custom">Custom creative content? Let's talk — tap Contact.</div>
     </div>
-    <div class="modal-divider"></div>
-    <div class="modal-instructions">
-      Send payment via Venmo with your name in the note.<br>
-      Your gallery link will be delivered within <strong>24 hours</strong>.
-    </div>
-    <a class="venmo-btn" id="venmo-link" target="_blank">
+    <div class="m-div"></div>
+    <div class="m-inst">Send payment via Venmo with your name in the note.<br>Your gallery link will be delivered within <strong>24 hours</strong>.</div>
+    <a class="venmo" id="pm-venmo" target="_blank">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>
       Pay on Venmo
     </a>
-    <div class="modal-note">After payment, your gallery link will be sent directly to you.</div>
+    <div class="m-note">After payment, your gallery link will be sent directly to you.</div>
   </div>
-
-  <div class="modal-footer">
-    <div class="modal-footer-quote" id="modal-footer-quote"></div>
-    <div class="modal-footer-copy">&copy; Just Joshing Media</div>
-  </div>
+  <footer class="ftr">
+    <div class="ftr-quote" id="pm-fq"></div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
+  </footer>
 </div>
 
 <!-- ABOUT MODAL -->
-
-<div class="modal-overlay" id="about-modal">
-  <div class="modal-site-header">
-    <div class="header-top">
-      <div class="header-crown-wrap" onclick="closeAbout()">
-        <img class="header-crown" src="Logo_png.PNG" alt="Just Joshing Media">
+<div class="modal" id="am">
+  <div class="hdr">
+    <div class="hdr-top">
+      <div class="hdr-crown" onclick="closeAbout()">
+        <img src="Logo_png.PNG" alt="">
       </div>
-      <div class="header-brand-wrap">
-        <div class="header-brand">Just Joshing Media</div>
-      </div>
+      <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
+      <div class="hdr-space"></div>
     </div>
-    <div class="header-nav-main">
+    <div class="hdr-nav">
       <a onclick="closeAbout();filter('all',null)">All</a>
       <a onclick="closeAbout();filter('basketball',null)">Basketball</a>
       <a onclick="closeAbout();filter('football',null)">Football</a>
@@ -505,229 +225,186 @@ margin-top: 16px; color: var(–text); line-height: 2;
       <a onclick="closeAbout();filter('commercial',null)">Commercial</a>
       <a onclick="closeAbout();filter('events',null)">Events</a>
     </div>
-    <div class="header-nav-bottom">
+    <div class="hdr-sub">
       <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="closeAbout()">Close</button>
     </div>
   </div>
-
   <div class="about-body">
-    <img class="about-crown" src="Logo_png.PNG" alt="Just Joshing Media">
-    <div class="about-intro">We define a standard.</div>
-    <div class="about-statement">Memories and content,<br>with intention.</div>
-    <div class="about-divider"></div>
-    <div class="about-block">
-      <div class="about-block-title">Film &amp; Motion</div>
-      <div class="about-block-body">High-impact edits built for attention. Game film, recruitment clips, short reels, full-game coverage. Motion captures energy, pace, emotion, and presence. Photography captures the defining moment.</div>
+    <img class="ab-crown" src="Logo_png.PNG" alt="">
+    <div class="ab-intro">We define a standard.</div>
+    <div class="ab-stmt">Memories and content,<br>with intention.</div>
+    <div class="ab-div"></div>
+    <div class="ab-block">
+      <div class="ab-title">Film &amp; Motion</div>
+      <div class="ab-body">High-impact edits built for attention. Game film, recruitment clips, short reels, full-game coverage. Motion captures energy, pace, emotion, and presence. Photography captures the defining moment.</div>
     </div>
-    <div class="about-block">
-      <div class="about-block-title">Athletes</div>
-      <div class="about-block-body">Built for high school and competitive athletes who want professional-level presentation. Capture. Color grade. Edit. Delivery. Custom pieces built around the athlete — authentic. Designed for exposure, recruiting, social presence, and long-term brand building.</div>
+    <div class="ab-block">
+      <div class="ab-title">Athletes</div>
+      <div class="ab-body">Built for high school and competitive athletes who want professional-level presentation. Capture. Color grade. Edit. Delivery. Custom pieces built around the athlete — authentic. Designed for exposure, recruiting, social presence, and long-term brand building.</div>
     </div>
-    <div class="about-block">
-      <div class="about-block-title">Business &amp; Beyond</div>
-      <div class="about-block-body">Commercials that move product. Reality and documentary work that tells a story. Corporate content with a cinematic standard. From brand launches to full productions — if it needs to be seen, it needs to be done right.</div>
+    <div class="ab-block">
+      <div class="ab-title">Business &amp; Beyond</div>
+      <div class="ab-body">Commercials that move product. Reality and documentary work that tells a story. Corporate content with a cinematic standard. From brand launches to full productions — if it needs to be seen, it needs to be done right.</div>
     </div>
-    <div class="about-divider"></div>
-    <div class="about-closer">Performance documentation.<br>Cinematic standard.</div>
+    <div class="ab-div"></div>
+    <div class="ab-close">Performance documentation.<br>Cinematic standard.</div>
   </div>
-
-  <div class="modal-footer">
-    <div class="modal-footer-quote" id="about-footer-quote"></div>
-    <div class="modal-footer-copy">&copy; Just Joshing Media</div>
-  </div>
+  <footer class="ftr">
+    <div class="ftr-quote" id="am-fq"></div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
+  </footer>
 </div>
 
 <script>
-  const VENMO = "justjoshing615";
+const VENMO = "justjoshing615";
+const quotes = [
+  "We define a standard.",
+  "Memories and content, with intention.",
+  "Performance documentation. Cinematic standard.",
+  "Every frame has a moment.",
+  "Ideas are cheap. Execution is everything.",
+  "How you do anything is how you do everything.",
+  "Greatness is a lot of small things done well, stacked up.",
+  "Do what you say you will do. Faster and better than people expect.",
+  "Focus and effort. We control both.",
+  "Luck is when opportunity meets preparation.",
+  "It's not about who did it first — it's about who did it right.",
+  "When in doubt, figure it out.",
+  "If you're not changing, you're stuck.",
+  "Innovation distinguishes between a leader and a follower.",
+  "Details matter. It's worth waiting to get it right.",
+  "Simple can be harder than complex.",
+  "Stay hungry. Stay foolish.",
+  "The only way to do great work is to love what you do.",
+  "Design is not just what it looks like — it's how it works.",
+  "Built for exposure. Designed to last.",
+  "Capture. Color grade. Edit. Deliver."
+];
 
-  const quotes = [
-    "We define a standard.",
-    "Memories and content, with intention.",
-    "Performance documentation. Cinematic standard.",
-    "Every frame has a moment.",
-    "Ideas are cheap. Execution is everything.",
-    "How you do anything is how you do everything.",
-    "Greatness is a lot of small things done well, stacked up.",
-    "Do what you say you will do. Faster and better than people expect.",
-    "Focus and effort. We control both.",
-    "Luck is when opportunity meets preparation.",
-    "It's not about who did it first — it's about who did it right.",
-    "When in doubt, figure it out.",
-    "If you're not changing, you're stuck.",
-    "Innovation distinguishes between a leader and a follower.",
-    "Details matter. It's worth waiting to get it right.",
-    "Simple can be harder than complex.",
-    "Stay hungry. Stay foolish.",
-    "The only way to do great work is to love what you do.",
-    "Design is not just what it looks like — it's how it works.",
-    "The best solutions come from those who understand both sides.",
-    "Built for exposure. Designed to last.",
-    "Capture. Color grade. Edit. Deliver.",
-  ];
-
-  let quoteIndex = Math.floor(Math.random() * quotes.length);
-
-  function setQuote(elId) {
-    const el = document.getElementById(elId);
-    if (!el) return;
-    el.textContent = quotes[quoteIndex];
-  }
-
-  function rotateQuotes() {
-    const els = ['footer-quote', 'modal-footer-quote', 'about-footer-quote'];
-    els.forEach(id => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.classList.add('hidden');
-    });
-    setTimeout(() => {
-      quoteIndex = (quoteIndex + 1) % quotes.length;
-      els.forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.textContent = quotes[quoteIndex];
-        el.classList.remove('hidden');
-      });
-    }, 700);
-  }
-
-  function calcPrice(count) { return Math.ceil(count / 250) * 50; }
-
-  const people = [
-    { name:"Ayden Meadows",  count:2140, sport:"basketball", img:"" },
-    { name:"Weston Hall",    count:1952, sport:"basketball", img:"" },
-    { name:"Houston Bogle",  count:1922, sport:"basketball", img:"" },
-    { name:"Simon",          count:1638, sport:"basketball", img:"" },
-    { name:"Mont",           count:1487, sport:"basketball", img:"" },
-    { name:"Aiden Bush",     count:1462, sport:"basketball", img:"" },
-    { name:"Ford Procter",   count:1198, sport:"basketball", img:"" },
-    { name:"Chris Jordan",   count:1115, sport:"basketball", img:"" },
-    { name:"Dallas Hodges",  count: 459, sport:"basketball", img:"" },
-  ];
-
-  people.sort((a,b) => a.name.localeCompare(b.name));
-
-  function initials(n) { return n.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(); }
-
-  let currentFilter = 'all';
-
-  function filter(sport, el) {
-    currentFilter = sport;
-    document.querySelectorAll('.header-nav-main a').forEach(a => a.classList.remove('active'));
-    if (el) el.classList.add('active');
-    render();
-  }
-
-  function animateCounter(el, target, duration) {
-    const start = performance.now();
-    function update(now) {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.floor(eased * target);
-      el.textContent = current.toLocaleString() + ' photos';
-      if (progress < 1) requestAnimationFrame(update);
-      else el.textContent = target.toLocaleString() + ' photos';
-    }
-    requestAnimationFrame(update);
-  }
-
-  function render() {
-    const grid = document.getElementById('grid');
-    let list = people.filter(p => currentFilter === 'all' || p.sport === currentFilter);
-    grid.innerHTML = '';
-
-    if (!list.length) {
-      grid.innerHTML = `<div class="empty"><div class="empty-title">Not Every Frame Is Public Yet</div></div>`;
-      return;
-    }
-
-    list.forEach((p, i) => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.onclick = () => openModal(p);
-      const countId = `count-${i}-${Date.now()}`;
-      card.innerHTML = `
-        <div class="card-img">
-          ${p.img ? `<img src="${p.img}" alt="${p.name}">` : `<div class="card-initials">${initials(p.name)}</div>`}
-        </div>
-        <div class="card-info">
-          <div class="card-name">${p.name}</div>
-          <div class="card-count" id="${countId}">0 photos</div>
-        </div>
-      `;
-      grid.appendChild(card);
-      setTimeout(() => {
-        const el = document.getElementById(countId);
-        if (el) animateCounter(el, p.count, 12000);
-      }, i * 120);
-    });
-  }
-
-  function openModal(p) {
-    const imgWrap = document.getElementById('modal-img');
-    imgWrap.innerHTML = p.img
-      ? `<img src="${p.img}" alt="${p.name}">`
-      : `<div class="modal-card-initials">${initials(p.name)}</div>`;
-
-    document.getElementById('modal-name').textContent  = p.name;
-    document.getElementById('modal-count').textContent = `${p.count.toLocaleString()} photos`;
-
-    const priceEl = document.getElementById('modal-price');
-    priceEl.textContent = `$${calcPrice(p.count)}`;
-    priceEl.classList.remove('revealed');
-    setTimeout(() => priceEl.classList.add('revealed'), 80);
-
-    const subject = encodeURIComponent(`Custom request — ${p.name}`);
-    document.getElementById('modal-contact-link').onclick = () => {
-      window.location.href = `mailto:justjoshing615@gmail.com?subject=${subject}`;
-    };
-
-    const note = encodeURIComponent(`${p.name} — Just Joshing Media`);
-    document.getElementById('venmo-link').href = `https://venmo.com/${VENMO}?txn=pay&amount=${calcPrice(p.count)}&note=${note}`;
-
-    setQuote('modal-footer-quote');
-    document.getElementById('modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeModal() {
-    document.getElementById('modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  function openAbout() {
-    setQuote('about-footer-quote');
-    document.getElementById('about-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeAbout() {
-    document.getElementById('about-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // ── INTRO ──
-  window.addEventListener('load', () => {
-    const crown  = document.getElementById('intro-crown');
-    const name   = document.getElementById('intro-name');
-    const intro  = document.getElementById('intro');
-    const main   = document.getElementById('main-content');
-
-    setTimeout(() => { crown.classList.add('visible'); name.classList.add('visible'); }, 150);
-    setTimeout(() => {
-      intro.classList.add('fade-out');
-      main.classList.add('visible');
-      setQuote('footer-quote');
-      render();
-    }, 2000);
-    setTimeout(() => { intro.style.display = 'none'; }, 2800);
-
-    // rotate quotes every 8 seconds
-    setInterval(rotateQuotes, 8000);
+let qi = Math.floor(Math.random() * quotes.length);
+function setQ(id) { const e = document.getElementById(id); if(e) e.textContent = quotes[qi]; }
+function rotateQ() {
+  ['fq','pm-fq','am-fq'].forEach(id => {
+    const e = document.getElementById(id);
+    if(e) e.classList.add('out');
   });
-</script>
+  setTimeout(() => {
+    qi = (qi+1) % quotes.length;
+    ['fq','pm-fq','am-fq'].forEach(id => {
+      const e = document.getElementById(id);
+      if(!e) return;
+      e.textContent = quotes[qi];
+      e.classList.remove('out');
+    });
+  }, 700);
+}
 
+function price(n) { return Math.ceil(n/250)*50; }
+function inits(n) { return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+
+const people = [
+  {name:"Ayden Meadows", count:2140, sport:"basketball", img:""},
+  {name:"Weston Hall",   count:1952, sport:"basketball", img:""},
+  {name:"Houston Bogle", count:1922, sport:"basketball", img:""},
+  {name:"Simon",         count:1638, sport:"basketball", img:""},
+  {name:"Mont",          count:1487, sport:"basketball", img:""},
+  {name:"Aiden Bush",    count:1462, sport:"basketball", img:""},
+  {name:"Ford Procter",  count:1198, sport:"basketball", img:""},
+  {name:"Chris Jordan",  count:1115, sport:"basketball", img:""},
+  {name:"Dallas Hodges", count: 459, sport:"basketball", img:""},
+];
+people.sort((a,b)=>a.name.localeCompare(b.name));
+
+let cf = 'all';
+function filter(sport, el) {
+  cf = sport;
+  document.querySelectorAll('.hdr-nav a').forEach(a=>a.classList.remove('on'));
+  if(el) el.classList.add('on');
+  render();
+}
+
+function counter(el, target, dur) {
+  const t0 = performance.now();
+  (function tick(now) {
+    const p = Math.min((now-t0)/dur,1);
+    const e = 1-Math.pow(1-p,3);
+    el.textContent = Math.floor(e*target).toLocaleString()+' photos';
+    if(p<1) requestAnimationFrame(tick);
+    else el.textContent = target.toLocaleString()+' photos';
+  })(performance.now());
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  const list = people.filter(p=>cf==='all'||p.sport===cf);
+  grid.innerHTML = '';
+  if(!list.length) {
+    grid.innerHTML = '<div class="empty"><span>Not Every Frame Is Public Yet</span></div>';
+    return;
+  }
+  list.forEach((p,i) => {
+    const id = 'c'+i+Date.now();
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.onclick = ()=>openModal(p);
+    card.innerHTML = `
+      <div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="card-init">${inits(p.name)}</div>`}</div>
+      <div class="card-info">
+        <div class="card-name">${p.name}</div>
+        <div class="card-count" id="${id}">0 photos</div>
+      </div>`;
+    grid.appendChild(card);
+    setTimeout(()=>{ const e=document.getElementById(id); if(e) counter(e,p.count,12000); }, i*120);
+  });
+}
+
+function openModal(p) {
+  const img = document.getElementById('pm-img');
+  img.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : `<div class="m-init">${inits(p.name)}</div>`;
+  document.getElementById('pm-name').textContent = p.name;
+  document.getElementById('pm-count').textContent = p.count.toLocaleString()+' photos';
+  const pe = document.getElementById('pm-price');
+  pe.textContent = '$'+price(p.count);
+  pe.classList.remove('show');
+  setTimeout(()=>pe.classList.add('show'),80);
+  const sub = encodeURIComponent('Custom request — '+p.name);
+  document.getElementById('pm-custom').onclick = ()=>{ window.location.href='mailto:justjoshing615@gmail.com?subject='+sub; };
+  document.getElementById('pm-venmo').href = 'https://venmo.com/'+VENMO+'?txn=pay&amount='+price(p.count)+'&note='+encodeURIComponent(p.name+' — Just Joshing Media');
+  setQ('pm-fq');
+  document.getElementById('pm').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal() {
+  document.getElementById('pm').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function openAbout() {
+  setQ('am-fq');
+  document.getElementById('am').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeAbout() {
+  document.getElementById('am').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+window.addEventListener('load',()=>{
+  const crown = document.getElementById('intro-crown');
+  const name  = document.getElementById('intro-name');
+  const intro = document.getElementById('intro');
+  setTimeout(()=>{ crown.classList.add('show'); name.classList.add('show'); },150);
+  setTimeout(()=>{
+    intro.classList.add('out');
+    setQ('fq');
+    render();
+  },2000);
+  setTimeout(()=>intro.style.display='none',2800);
+  setInterval(rotateQ,8000);
+});
+</script>
 </body>
 </html>
