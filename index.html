@@ -10,126 +10,87 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 :root { --bg:#fff; --text:#000; --muted:#999; --border:#e8e8e8; }
 body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-serif; min-height:100vh; display:flex; flex-direction:column; overflow-x:hidden; }
-
-/* INTRO */
-#intro { position:fixed; inset:0; background:var(–bg); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.7s; }
+#intro { position:fixed; inset:0; background:var(--bg); z-index:999; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; transition:opacity 0.7s; }
 #intro.out { opacity:0; pointer-events:none; }
 #intro-crown { height:110px; opacity:0; transform:translateY(8px); transition:opacity 0.8s, transform 0.8s; }
 #intro-crown.show { opacity:1; transform:translateY(0); }
-#intro-name { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:0.22em; text-transform:uppercase; opacity:0; transition:opacity 0.8s 0.4s; }
+#intro-name { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.22em; text-transform:uppercase; opacity:0; transition:opacity 0.8s 0.4s; }
 #intro-name.show { opacity:1; }
-
-/* STICKY HEADER */
-.site-header { position:sticky; top:0; z-index:100; background:var(–bg); border-bottom:1px solid var(–border); }
-
-.hdr-top { display:flex; align-items:stretch; border-bottom:1px solid var(–border); min-height:60px; }
-.hdr-crown { display:flex; align-items:center; padding:8px 16px; border-right:1px solid var(–border); cursor:pointer; flex-shrink:0; }
+.site-header { position:sticky; top:0; z-index:100; background:var(--bg); }
+.hdr-top { display:flex; align-items:stretch; border-bottom:1px solid var(--border); min-height:60px; }
+.hdr-crown { display:flex; align-items:center; padding:8px 16px; border-right:1px solid var(--border); cursor:pointer; flex-shrink:0; }
 .hdr-crown img { height:44px; width:auto; display:block; }
 .hdr-mid { flex:1; display:flex; align-items:center; justify-content:center; }
-.hdr-brand { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:0.22em; text-transform:uppercase; }
-.hdr-space { min-width:76px; border-left:1px solid var(–border); flex-shrink:0; }
-
-.hdr-nav { display:flex; align-items:center; justify-content:center; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(–border); }
+.hdr-brand { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.22em; text-transform:uppercase; }
+.hdr-space { min-width:76px; border-left:1px solid var(--border); flex-shrink:0; }
+.hdr-nav { display:flex; align-items:center; justify-content:center; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--border); }
 .hdr-nav::-webkit-scrollbar { display:none; }
-.hdr-nav a { font-family:‘Bebas Neue’,sans-serif; font-size:13px; letter-spacing:0.16em; text-decoration:none; color:var(–muted); padding:9px 18px; border-right:1px solid var(–border); cursor:pointer; transition:color 0.2s; white-space:nowrap; display:block; }
+.hdr-nav a { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); padding:9px 18px; border-right:1px solid var(--border); cursor:pointer; transition:color 0.2s; white-space:nowrap; display:block; }
 .hdr-nav a:last-child { border-right:none; }
-.hdr-nav a.on, .hdr-nav a:hover { color:var(–text); }
-
-.hdr-sub { display:flex; align-items:center; justify-content:center; }
-.hdr-sub a, .hdr-sub button { font-family:‘Bebas Neue’,sans-serif; font-size:12px; letter-spacing:0.16em; text-decoration:none; color:var(–muted); background:none; border:none; cursor:pointer; padding:8px 28px; border-right:1px solid var(–border); transition:color 0.2s; display:block; }
+.hdr-nav a.on, .hdr-nav a:hover { color:var(--text); }
+.hdr-sub { display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); }
+.hdr-sub a, .hdr-sub button { font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); background:none; border:none; cursor:pointer; padding:8px 28px; border-right:1px solid var(--border); transition:color 0.2s; display:block; }
 .hdr-sub a:last-child, .hdr-sub button:last-child { border-right:none; }
-.hdr-sub a:hover, .hdr-sub button:hover { color:var(–text); }
-
-/* GRID */
+.hdr-sub a:hover, .hdr-sub button:hover { color:var(--text); }
 #wrap { flex:1; }
-.grid { display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(–border); }
-.card { background:var(–bg); cursor:pointer; overflow:hidden; }
+.grid { display:grid; grid-template-columns:repeat(6,1fr); gap:1px; background:var(--border); }
+.card { background:var(--bg); cursor:pointer; overflow:hidden; }
 .card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-.card-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:filter 0.4s, transform 0.4s; }
+.card-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:filter 0.4s,transform 0.4s; }
 .card:hover .card-img img { filter:grayscale(0%); transform:scale(1.03); }
-.card-init { font-family:‘Bebas Neue’,sans-serif; font-size:22px; letter-spacing:0.08em; color:#ccc; }
+.card-init { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:0.08em; color:#ccc; }
 .card-info { padding:8px 8px 12px; text-align:center; }
-.card-name { font-family:‘Bebas Neue’,sans-serif; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:3px; color:var(–text); opacity:0.5; transition:opacity 0.3s; }
+.card-name { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.14em; text-transform:uppercase; margin-bottom:3px; color:var(--text); opacity:0.5; transition:opacity 0.3s; }
 .card:hover .card-name { opacity:1; }
-.card-count { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(–muted); opacity:0.5; transition:opacity 0.3s; }
+.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; }
 .card:hover .card-count { opacity:1; }
-
-/* EMPTY */
-.empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(–bg); }
-.empty span { font-family:‘Bebas Neue’,sans-serif; font-size:16px; letter-spacing:0.3em; color:var(–muted); }
-
-/* FOOTER */
-.ftr { border-top:1px solid var(–border); padding:32px 24px 24px; display:flex; flex-direction:column; align-items:center; gap:12px; flex-shrink:0; background:var(–bg); }
-.ftr-quote { font-family:‘Montserrat’,sans-serif; font-size:9px; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:var(–muted); text-align:center; max-width:500px; line-height:2.2; transition:opacity 0.8s; min-height:20px; }
+.empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(--bg); }
+.empty span { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.3em; color:var(--muted); }
+.ftr { border-top:1px solid var(--border); padding:32px 24px 24px; display:flex; flex-direction:column; align-items:center; gap:12px; flex-shrink:0; background:var(--bg); }
+.ftr-quote { font-family:'Montserrat',sans-serif; font-size:9px; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:500px; line-height:2.2; transition:opacity 0.8s; min-height:20px; }
 .ftr-quote.out { opacity:0; }
-.ftr-copy { font-family:‘Montserrat’,sans-serif; font-size:8px; letter-spacing:0.14em; text-transform:uppercase; color:#ccc; }
-
-/* MODAL */
-.modal { display:none; position:fixed; inset:0; z-index:500; background:var(–bg); flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
+.ftr-copy { font-family:'Montserrat',sans-serif; font-size:8px; letter-spacing:0.14em; text-transform:uppercase; color:#ccc; }
+.modal { display:none; position:fixed; inset:0; z-index:500; background:var(--bg); flex-direction:column; overflow-y:auto; -webkit-overflow-scrolling:touch; }
 .modal.open { display:flex; }
-
-/* modal header is also sticky */
-.modal-hdr { position:sticky; top:0; z-index:10; background:var(–bg); border-bottom:1px solid var(–border); }
-
+.modal-hdr { position:sticky; top:0; z-index:10; background:var(--bg); }
 .modal-body { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px 40px; }
-
-/* purchase */
-.m-img { width:140px; aspect-ratio:4/5; background:#fff; border:1px solid var(–border); display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:18px; }
+.m-img { width:140px; aspect-ratio:4/5; background:#fff; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:18px; }
 .m-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
-.m-init { font-family:‘Bebas Neue’,sans-serif; font-size:32px; color:#ccc; }
-.m-name { font-family:‘Bebas Neue’,sans-serif; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:4px; }
-.m-count { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:var(–muted); margin-bottom:4px; }
-.m-price { font-family:‘Bebas Neue’,sans-serif; font-size:38px; letter-spacing:0.1em; margin-bottom:24px; opacity:0; transition:opacity 0.9s 0.5s; }
+.m-init { font-family:'Bebas Neue',sans-serif; font-size:32px; color:#ccc; }
+.m-name { font-family:'Bebas Neue',sans-serif; font-size:24px; letter-spacing:0.18em; text-transform:uppercase; margin-bottom:4px; }
+.m-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-bottom:4px; }
+.m-price { font-family:'Bebas Neue',sans-serif; font-size:38px; letter-spacing:0.1em; margin-bottom:24px; opacity:0; transition:opacity 0.9s 0.5s; }
 .m-price.show { opacity:1; }
-
-.m-block { text-align:center; max-width:300px; margin-bottom:6px; }
-.m-line { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:#666; line-height:2.2; margin-bottom:4px; }
-.m-link { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(–text); cursor:pointer; text-decoration:underline; text-underline-offset:3px; line-height:2.2; }
-
-.m-spacer { height:20px; }
-.m-pay-line { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:#666; line-height:2.2; text-align:center; max-width:280px; margin-bottom:4px; }
-.m-deliver { font-family:‘Montserrat’,sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:#666; line-height:2.2; text-align:center; max-width:280px; margin-bottom:20px; }
-
-.venmo { display:inline-flex; align-items:center; gap:10px; background:#000; color:#fff; padding:13px 36px; font-family:‘Bebas Neue’,sans-serif; font-size:15px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; margin-bottom:8px; border:none; cursor:pointer; }
+.m-block { text-align:center; max-width:300px; margin-bottom:16px; }
+.m-line { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:#666; line-height:2.2; }
+.m-link { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); cursor:pointer; text-decoration:underline; text-underline-offset:3px; line-height:2.2; display:inline-block; margin-top:4px; }
+.m-spacer { height:6px; }
+.venmo { display:inline-flex; align-items:center; gap:10px; background:#000; color:#fff; padding:13px 36px; font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; margin:16px 0 8px; border:none; cursor:pointer; }
 .venmo:hover { opacity:0.75; }
-.m-note { font-family:‘Montserrat’,sans-serif; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:#aaa; text-align:center; max-width:220px; line-height:2.2; }
-
-/* about */
+.m-note { font-family:'Montserrat',sans-serif; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:#aaa; text-align:center; max-width:220px; line-height:2.2; }
 .about-body { flex:1; display:flex; flex-direction:column; align-items:center; padding:48px 24px 60px; max-width:520px; margin:0 auto; width:100%; }
 .ab-crown { height:56px; margin-bottom:24px; }
-.ab-intro { font-family:‘Bebas Neue’,sans-serif; font-size:15px; letter-spacing:0.3em; text-transform:uppercase; text-align:center; margin-bottom:24px; line-height:1.8; }
-.ab-stmt { font-family:‘Bebas Neue’,sans-serif; font-size:28px; letter-spacing:0.06em; text-transform:uppercase; text-align:center; line-height:1.2; margin-bottom:44px; }
-.ab-div { width:40px; height:1px; background:var(–border); margin-bottom:40px; }
+.ab-intro { font-family:'Bebas Neue',sans-serif; font-size:15px; letter-spacing:0.3em; text-transform:uppercase; text-align:center; margin-bottom:24px; line-height:1.8; }
+.ab-stmt { font-family:'Bebas Neue',sans-serif; font-size:28px; letter-spacing:0.06em; text-transform:uppercase; text-align:center; line-height:1.2; margin-bottom:44px; }
+.ab-div { width:40px; height:1px; background:var(--border); margin-bottom:40px; }
 .ab-block { margin-bottom:36px; text-align:center; width:100%; }
-.ab-title { font-family:‘Bebas Neue’,sans-serif; font-size:14px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:10px; }
-.ab-body { font-family:‘Montserrat’,sans-serif; font-size:11px; font-weight:300; letter-spacing:0.06em; line-height:2.2; color:#888; max-width:380px; margin:0 auto; }
-.ab-close { font-family:‘Bebas Neue’,sans-serif; font-size:14px; letter-spacing:0.3em; text-transform:uppercase; text-align:center; margin-top:16px; line-height:2; }
-
-/* responsive */
-@media(max-width:900px) { .grid { grid-template-columns:repeat(4,1fr); } }
-@media(max-width:600px) { .hdr-brand { font-size:16px; } .hdr-nav a { font-size:11px; padding:8px 10px; } .hdr-sub a, .hdr-sub button { padding:7px 16px; } .grid { grid-template-columns:repeat(3,1fr); } }
-@media(max-width:400px) { .grid { grid-template-columns:repeat(2,1fr); } }
+.ab-title { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:10px; }
+.ab-body { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.06em; line-height:2.2; color:#888; max-width:380px; margin:0 auto; }
+.ab-close { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.3em; text-transform:uppercase; text-align:center; margin-top:16px; line-height:2; }
+@media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:600px){.hdr-brand{font-size:16px;}.hdr-nav a{font-size:11px;padding:8px 10px;}.hdr-sub a,.hdr-sub button{padding:7px 16px;}.grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:400px){.grid{grid-template-columns:repeat(2,1fr);}}
 </style>
-
 </head>
 <body>
-
-<!-- INTRO -->
-
 <div id="intro">
   <img id="intro-crown" src="Logo_png.PNG" alt="">
   <div id="intro-name">Just Joshing Media</div>
 </div>
-
-<!-- PAGE -->
-
 <div id="page" style="display:flex;flex-direction:column;flex:1;opacity:0;transition:opacity 0.6s;">
-
   <div class="site-header">
     <div class="hdr-top">
-      <div class="hdr-crown" onclick="goHome()">
-        <img src="Logo_png.PNG" alt="">
-      </div>
+      <div class="hdr-crown" onclick="goHome()"><img src="Logo_png.PNG" alt=""></div>
       <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
       <div class="hdr-space"></div>
     </div>
@@ -146,40 +107,30 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <button onclick="openAbout()">About</button>
     </div>
   </div>
-
-  <div id="wrap">
-    <div class="grid" id="grid"></div>
-  </div>
-
+  <div id="wrap"><div class="grid" id="grid"></div></div>
   <footer class="ftr">
     <div class="ftr-quote" id="fq"></div>
     <div class="ftr-copy">&copy; Just Joshing Media</div>
   </footer>
-
 </div>
-
-<!-- PURCHASE MODAL -->
-
 <div class="modal" id="pm">
   <div class="modal-hdr">
     <div class="hdr-top">
-      <div class="hdr-crown" onclick="closeModal()">
-        <img src="Logo_png.PNG" alt="">
-      </div>
+      <div class="hdr-crown" onclick="goHome()"><img src="Logo_png.PNG" alt=""></div>
       <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
       <div class="hdr-space"></div>
     </div>
     <div class="hdr-nav">
-      <a onclick="closeModal();filter('all',null)">All</a>
-      <a onclick="closeModal();filter('basketball',null)">Basketball</a>
-      <a onclick="closeModal();filter('football',null)">Football</a>
-      <a onclick="closeModal();filter('film',null)">Film</a>
-      <a onclick="closeModal();filter('commercial',null)">Commercial</a>
-      <a onclick="closeModal();filter('events',null)">Events</a>
+      <a onclick="goHome();filter('all',null)">All</a>
+      <a onclick="goHome();filter('basketball',null)">Basketball</a>
+      <a onclick="goHome();filter('football',null)">Football</a>
+      <a onclick="goHome();filter('film',null)">Film</a>
+      <a onclick="goHome();filter('commercial',null)">Commercial</a>
+      <a onclick="goHome();filter('events',null)">Events</a>
     </div>
     <div class="hdr-sub">
       <a href="mailto:justjoshing615@gmail.com">Contact</a>
-      <button onclick="closeModal();openAbout()">About</button>
+      <button onclick="goHome();openAbout()">About</button>
     </div>
   </div>
   <div class="modal-body">
@@ -187,63 +138,51 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="m-name" id="pm-name"></div>
     <div class="m-count" id="pm-count"></div>
     <div class="m-price" id="pm-price"></div>
-
-```
-<div class="m-block">
-  <div class="m-line">Most images are delivered raw and unedited.</div>
-  <div class="m-line">Editing available upon request — standard edits $20 per 10 photos.</div>
-  <div class="m-line">Include photo numbers and requests when contacting.</div>
-  <div class="m-link" id="pm-edit-contact">Contact</div>
-</div>
-
-<div class="m-spacer"></div>
-
-<div class="m-block">
-  <div class="m-line">Custom creative content?</div>
-  <div class="m-link" id="pm-custom-contact">Contact</div>
-</div>
-
-<div class="m-spacer"></div>
-
-<div class="m-pay-line">Send payment via Venmo with your name in the note.</div>
-<div class="m-deliver">Your gallery link will be delivered via link within 24 hours.</div>
-
-<a class="venmo" id="pm-venmo" target="_blank">
-  <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>
-  Pay on Venmo
-</a>
-<div class="m-note">After payment, your gallery link will be sent directly to you.</div>
-```
-
+    <div class="m-block">
+      <div class="m-line">Most images are delivered raw and unedited.</div>
+      <div class="m-spacer"></div>
+      <div class="m-line">Editing available upon request.</div>
+      <div class="m-line">Standard edits $20 per 10 photos.</div>
+      <div class="m-line">Include photo numbers and requests —</div>
+      <div class="m-link" id="pm-edit-contact">Contact</div>
+    </div>
+    <div class="m-block">
+      <div class="m-line">Custom creative content?</div>
+      <div class="m-link" id="pm-custom-contact">Contact</div>
+    </div>
+    <div class="m-block">
+      <div class="m-line">Send payment via Venmo with your name in the note.</div>
+      <div class="m-line">Your gallery link will be delivered within 24 hours.</div>
+    </div>
+    <a class="venmo" id="pm-venmo" target="_blank">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>
+      Pay on Venmo
+    </a>
+    <div class="m-note">After payment, your gallery link will be sent directly to you.</div>
   </div>
   <footer class="ftr">
     <div class="ftr-quote" id="pm-fq"></div>
     <div class="ftr-copy">&copy; Just Joshing Media</div>
   </footer>
 </div>
-
-<!-- ABOUT MODAL -->
-
 <div class="modal" id="am">
   <div class="modal-hdr">
     <div class="hdr-top">
-      <div class="hdr-crown" onclick="closeAbout()">
-        <img src="Logo_png.PNG" alt="">
-      </div>
+      <div class="hdr-crown" onclick="goHome()"><img src="Logo_png.PNG" alt=""></div>
       <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
       <div class="hdr-space"></div>
     </div>
     <div class="hdr-nav">
-      <a onclick="closeAbout();filter('all',null)">All</a>
-      <a onclick="closeAbout();filter('basketball',null)">Basketball</a>
-      <a onclick="closeAbout();filter('football',null)">Football</a>
-      <a onclick="closeAbout();filter('film',null)">Film</a>
-      <a onclick="closeAbout();filter('commercial',null)">Commercial</a>
-      <a onclick="closeAbout();filter('events',null)">Events</a>
+      <a onclick="goHome();filter('all',null)">All</a>
+      <a onclick="goHome();filter('basketball',null)">Basketball</a>
+      <a onclick="goHome();filter('football',null)">Football</a>
+      <a onclick="goHome();filter('film',null)">Film</a>
+      <a onclick="goHome();filter('commercial',null)">Commercial</a>
+      <a onclick="goHome();filter('events',null)">Events</a>
     </div>
     <div class="hdr-sub">
       <a href="mailto:justjoshing615@gmail.com">Contact</a>
-      <button onclick="closeAbout()">Close</button>
+      <button onclick="goHome()">Close</button>
     </div>
   </div>
   <div class="about-body">
@@ -271,170 +210,95 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="ftr-copy">&copy; Just Joshing Media</div>
   </footer>
 </div>
-
 <script>
-const VENMO = "justjoshing615";
-const quotes = [
-  "We define a standard.",
-  "Memories and content, with intention.",
-  "Performance documentation. Cinematic standard.",
-  "Every frame has a moment.",
-  "Ideas are cheap. Execution is everything.",
-  "How you do anything is how you do everything.",
-  "Greatness is a lot of small things done well, stacked up.",
-  "Do what you say you will do. Faster and better than people expect.",
-  "Focus and effort. We control both.",
-  "Luck is when opportunity meets preparation.",
-  "It's not about who did it first — it's about who did it right.",
-  "When in doubt, figure it out.",
-  "If you're not changing, you're stuck.",
-  "Innovation distinguishes between a leader and a follower.",
-  "Details matter. It's worth waiting to get it right.",
-  "Simple can be harder than complex.",
-  "Stay hungry. Stay foolish.",
-  "The only way to do great work is to love what you do.",
-  "Design is not just what it looks like — it's how it works.",
-  "Built for exposure. Designed to last.",
-  "Capture. Color grade. Edit. Deliver."
-];
-
-let qi = Math.floor(Math.random() * quotes.length);
-function setQ(id) { const e = document.getElementById(id); if(e) e.textContent = quotes[qi]; }
-function rotateQ() {
-  ['fq','pm-fq','am-fq'].forEach(id => {
-    const e = document.getElementById(id);
-    if(e) e.classList.add('out');
-  });
-  setTimeout(() => {
-    qi = (qi+1) % quotes.length;
-    ['fq','pm-fq','am-fq'].forEach(id => {
-      const e = document.getElementById(id);
-      if(!e) return;
-      e.textContent = quotes[qi];
-      e.classList.remove('out');
-    });
-  }, 900);
-}
-
-function price(n) { return Math.ceil(n/250)*50; }
-function inits(n) { return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
-
-const people = [
-  {name:"Ayden Meadows", count:2140, sport:"basketball", img:""},
-  {name:"Weston Hall",   count:1952, sport:"basketball", img:""},
-  {name:"Houston Bogle", count:1922, sport:"basketball", img:""},
-  {name:"Simon",         count:1638, sport:"basketball", img:""},
-  {name:"Mont",          count:1487, sport:"basketball", img:""},
-  {name:"Aiden Bush",    count:1462, sport:"basketball", img:""},
-  {name:"Ford Procter",  count:1198, sport:"basketball", img:""},
-  {name:"Chris Jordan",  count:1115, sport:"basketball", img:""},
-  {name:"Dallas Hodges", count: 459, sport:"basketball", img:""},
+const VENMO="justjoshing615";
+const quotes=["We define a standard.","Memories and content, with intention.","Performance documentation. Cinematic standard.","Every frame has a moment.","Ideas are cheap. Execution is everything.","How you do anything is how you do everything.","Greatness is a lot of small things done well, stacked up.","Do what you say you will do. Faster and better than people expect.","Focus and effort. We control both.","Luck is when opportunity meets preparation.","It's not about who did it first — it's about who did it right.","When in doubt, figure it out.","If you're not changing, you're stuck.","Innovation distinguishes between a leader and a follower.","Details matter. It's worth waiting to get it right.","Simple can be harder than complex.","Stay hungry. Stay foolish.","The only way to do great work is to love what you do.","Design is not just what it looks like — it's how it works.","Built for exposure. Designed to last.","Capture. Color grade. Edit. Deliver."];
+let qi=Math.floor(Math.random()*quotes.length);
+function setQ(id){const e=document.getElementById(id);if(e)e.textContent=quotes[qi];}
+function rotateQ(){['fq','pm-fq','am-fq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['fq','pm-fq','am-fq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},900);}
+function price(n){return Math.ceil(n/250)*50;}
+function inits(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
+const people=[
+  {name:"Ayden Meadows",count:2140,sport:"basketball",img:""},
+  {name:"Weston Hall",count:1952,sport:"basketball",img:""},
+  {name:"Houston Bogle",count:1922,sport:"basketball",img:""},
+  {name:"Simon",count:1638,sport:"basketball",img:""},
+  {name:"Mont",count:1487,sport:"basketball",img:""},
+  {name:"Aiden Bush",count:1462,sport:"basketball",img:""},
+  {name:"Ford Procter",count:1198,sport:"basketball",img:""},
+  {name:"Chris Jordan",count:1115,sport:"basketball",img:""},
+  {name:"Dallas Hodges",count:459,sport:"basketball",img:""}
 ];
 people.sort((a,b)=>a.name.localeCompare(b.name));
-
-let cf = 'all';
-
-function goHome() {
-  closeModal();
-  closeAbout();
-  window.scrollTo({top:0, behavior:'smooth'});
+let cf='all';
+function goHome(){
+  document.getElementById('pm').classList.remove('open');
+  document.getElementById('am').classList.remove('open');
+  document.body.style.overflow='';
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-function filter(sport, el) {
-  cf = sport;
+function filter(sport,el){
+  cf=sport;
   document.querySelectorAll('.hdr-nav a').forEach(a=>a.classList.remove('on'));
-  if(el) el.classList.add('on');
+  if(el)el.classList.add('on');
   render();
 }
-
-function counter(el, target, dur) {
-  const t0 = performance.now();
-  (function tick(now) {
-    const p = Math.min((now-t0)/dur, 1);
-    const e = 1-Math.pow(1-p, 3);
-    el.textContent = Math.floor(e*target).toLocaleString()+' photos';
-    if(p<1) requestAnimationFrame(tick);
-    else el.textContent = target.toLocaleString()+' photos';
+function counter(el,target,dur){
+  const t0=performance.now();
+  (function tick(now){
+    const p=Math.min((now-t0)/dur,1);
+    const e=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(e*target).toLocaleString()+' photos';
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=target.toLocaleString()+' photos';
   })(performance.now());
 }
-
-function render() {
-  const grid = document.getElementById('grid');
-  const list = people.filter(p=>cf==='all'||p.sport===cf);
-  grid.innerHTML = '';
-  if(!list.length) {
-    grid.innerHTML = '<div class="empty"><span>Not Every Frame Is Public Yet</span></div>';
-    return;
-  }
-  list.forEach((p,i) => {
-    const id = 'c'+i+'_'+Math.random().toString(36).slice(2);
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.onclick = ()=>openModal(p);
-    card.innerHTML = `
-      <div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="card-init">${inits(p.name)}</div>`}</div>
-      <div class="card-info">
-        <div class="card-name">${p.name}</div>
-        <div class="card-count" id="${id}">0 photos</div>
-      </div>`;
+function render(){
+  const grid=document.getElementById('grid');
+  const list=people.filter(p=>cf==='all'||p.sport===cf);
+  grid.innerHTML='';
+  if(!list.length){grid.innerHTML='<div class="empty"><span>Not Every Frame Is Public Yet</span></div>';return;}
+  list.forEach((p,i)=>{
+    const id='c'+i+'_'+Math.random().toString(36).slice(2);
+    const card=document.createElement('div');
+    card.className='card';
+    card.onclick=()=>openModal(p);
+    card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
     grid.appendChild(card);
-    setTimeout(()=>{ const e=document.getElementById(id); if(e) counter(e,p.count,13000); }, i*150);
+    setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,p.count,13000);},i*150);
   });
 }
-
-function openModal(p) {
-  const img = document.getElementById('pm-img');
-  img.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : `<div class="m-init">${inits(p.name)}</div>`;
-  document.getElementById('pm-name').textContent = p.name;
-  document.getElementById('pm-count').textContent = p.count.toLocaleString()+' photos';
-  const pe = document.getElementById('pm-price');
-  pe.textContent = '$'+price(p.count);
+function openModal(p){
+  const img=document.getElementById('pm-img');
+  img.innerHTML=p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="m-init">${inits(p.name)}</div>`;
+  document.getElementById('pm-name').textContent=p.name;
+  document.getElementById('pm-count').textContent=p.count.toLocaleString()+' photos';
+  const pe=document.getElementById('pm-price');
+  pe.textContent='$'+price(p.count);
   pe.classList.remove('show');
-  setTimeout(()=>pe.classList.add('show'), 80);
-
-  const editSub = encodeURIComponent('Edit request — '+p.name);
-  document.getElementById('pm-edit-contact').onclick = ()=>{ window.open('mailto:justjoshing615@gmail.com?subject='+editSub,'_blank'); };
-  const custSub = encodeURIComponent('Custom creative content — '+p.name);
-  document.getElementById('pm-custom-contact').onclick = ()=>{ window.open('mailto:justjoshing615@gmail.com?subject='+custSub,'_blank'); };
-
-  document.getElementById('pm-venmo').href = 'https://venmo.com/'+VENMO+'?txn=pay&amount='+price(p.count)+'&note='+encodeURIComponent(p.name+' — Just Joshing Media');
+  setTimeout(()=>pe.classList.add('show'),80);
+  document.getElementById('pm-edit-contact').onclick=()=>window.open('mailto:justjoshing615@gmail.com?subject='+encodeURIComponent('Edit request — '+p.name),'_blank');
+  document.getElementById('pm-custom-contact').onclick=()=>window.open('mailto:justjoshing615@gmail.com?subject='+encodeURIComponent('Custom creative — '+p.name),'_blank');
+  document.getElementById('pm-venmo').href='https://venmo.com/'+VENMO+'?txn=pay&amount='+price(p.count)+'&note='+encodeURIComponent(p.name+' — Just Joshing Media');
   setQ('pm-fq');
   document.getElementById('pm').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-
-function closeModal() {
-  document.getElementById('pm').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function openAbout() {
+function openAbout(){
   setQ('am-fq');
   document.getElementById('am').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
-
-function closeAbout() {
-  document.getElementById('am').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-window.addEventListener('load', () => {
-  const crown = document.getElementById('intro-crown');
-  const name  = document.getElementById('intro-name');
-  const intro = document.getElementById('intro');
-  const page  = document.getElementById('page');
-  setTimeout(()=>{ crown.classList.add('show'); name.classList.add('show'); }, 150);
-  setTimeout(()=>{
-    intro.classList.add('out');
-    page.style.opacity = '1';
-    setQ('fq');
-    render();
-  }, 2000);
-  setTimeout(()=>intro.style.display='none', 2800);
-  setInterval(rotateQ, 14000);
+window.addEventListener('load',()=>{
+  const crown=document.getElementById('intro-crown');
+  const name=document.getElementById('intro-name');
+  const intro=document.getElementById('intro');
+  const page=document.getElementById('page');
+  setTimeout(()=>{crown.classList.add('show');name.classList.add('show');},150);
+  setTimeout(()=>{intro.classList.add('out');page.style.opacity='1';setQ('fq');render();},2000);
+  setTimeout(()=>intro.style.display='none',2800);
+  setInterval(rotateQ,14000);
 });
 </script>
-
 </body>
 </html>
