@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -11,166 +10,165 @@
   :root { --bg:#ffffff; --text:#000000; --muted:#999999; --border:#ebebeb; }
   body { background:var(--bg); color:var(--text); font-family:'Montserrat',sans-serif; min-height:100vh; }
 
-/* ── HEADER ── */
-header {
-display: flex;
-flex-direction: column;
-align-items: center;
-padding: 24px 32px 16px;
-border-bottom: 1px solid var(–border);
-background: var(–bg);
-position: sticky;
-top: 0;
-z-index: 100;
-}
+  /* ── HEADER ── */
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 32px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
 
-.logo-wrap {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 6px;
-margin-bottom: 16px;
-}
+  .logo-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
 
-.logo-crown {
-height: 120px;
-width: auto;
-}
+  .logo-crown {
+    height: 120px;
+    width: auto;
+  }
 
-.logo-text {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 0px;
-margin-top: -8px;
-}
-.logo-just   { font-size: 9px;  font-weight: 700; letter-spacing: 0.45em;  text-transform: uppercase; color: var(–text); }
-.logo-joshing{ font-size: 22px; font-weight: 900; letter-spacing: 0.1em;   text-transform: uppercase; }
-.logo-media  { font-size: 8px;  font-weight: 700; letter-spacing: 0.5em;   text-transform: uppercase; color: var(–text); }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px;
+    margin-top: -8px;
+  }
+  .logo-just   { font-size: 9px;  font-weight: 700; letter-spacing: 0.45em;  text-transform: uppercase; color: var(--text); }
+  .logo-joshing{ font-size: 22px; font-weight: 900; letter-spacing: 0.1em;   text-transform: uppercase; }
+  .logo-media  { font-size: 8px;  font-weight: 700; letter-spacing: 0.5em;   text-transform: uppercase; color: var(--text); }
 
-nav {
-display: flex;
-gap: 24px;
-align-items: center;
-}
-nav a {
-font-size: 10px; font-weight: 400; letter-spacing: 0.18em;
-text-transform: uppercase; text-decoration: none;
-color: var(–muted); transition: color 0.2s; cursor: pointer;
-}
-nav a.active, nav a:hover { color: var(–text); }
+  nav {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+  nav a {
+    font-size: 10px; font-weight: 400; letter-spacing: 0.18em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--muted); transition: color 0.2s; cursor: pointer;
+  }
+  nav a.active, nav a:hover { color: var(--text); }
 
-.contact-link {
-font-size: 10px; font-weight: 400; letter-spacing: 0.18em;
-text-transform: uppercase; text-decoration: none;
-color: var(–muted); transition: color 0.2s;
-margin-left: 24px;
-}
-.contact-link:hover { color: var(–text); }
+  .contact-link {
+    font-size: 10px; font-weight: 400; letter-spacing: 0.18em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--muted); transition: color 0.2s;
+    margin-left: 24px;
+  }
+  .contact-link:hover { color: var(--text); }
 
-.nav-row {
-display: flex;
-align-items: center;
-justify-content: center;
-}
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-/* ── GRID ── */
-.grid {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-padding: 40px 32px;
-}
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 40px 32px;
+  }
 
-.card {
-display: flex; flex-direction: column; align-items: center;
-padding: 36px 20px; cursor: pointer;
-border: 1px solid transparent; transition: border-color 0.2s;
-}
-.card:hover { border-color: var(–border); }
+  .card {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 36px 20px; cursor: pointer;
+    border: 1px solid transparent; transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border); }
 
-.avatar {
-width: 110px; height: 110px; border-radius: 50%;
-margin-bottom: 18px; transition: transform 0.3s;
-background: #f5f5f5; display: flex; align-items: center;
-justify-content: center; font-size: 30px; font-weight: 700;
-color: #ccc; overflow: hidden; flex-shrink: 0;
-}
-.avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-.card:hover .avatar { transform: scale(1.04); }
+  .avatar {
+    width: 110px; height: 110px; border-radius: 50%;
+    margin-bottom: 18px; transition: transform 0.3s;
+    background: #f5f5f5; display: flex; align-items: center;
+    justify-content: center; font-size: 30px; font-weight: 700;
+    color: #ccc; overflow: hidden; flex-shrink: 0;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .card:hover .avatar { transform: scale(1.04); }
 
-.card-name  { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; margin-bottom: 5px; }
-.card-count { font-size: 9px;  font-weight: 300; letter-spacing: 0.1em;  text-transform: uppercase; color: var(–muted); }
+  .card-name  { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-align: center; margin-bottom: 5px; }
+  .card-count { font-size: 9px;  font-weight: 300; letter-spacing: 0.1em;  text-transform: uppercase; color: var(--muted); }
 
-/* ── MODAL ── */
-.modal-overlay {
-display: none; position: fixed; inset: 0;
-background: rgba(255,255,255,0.97); z-index: 200;
-flex-direction: column; align-items: center;
-justify-content: center; padding: 40px 24px;
-}
-.modal-overlay.open { display: flex; }
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(255,255,255,0.97); z-index: 200;
+    flex-direction: column; align-items: center;
+    justify-content: center; padding: 40px 24px;
+  }
+  .modal-overlay.open { display: flex; }
 
-.modal-back {
-position: absolute; top: 26px; left: 28px;
-font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-cursor: pointer; color: var(–muted); background: none;
-border: none; font-family: inherit; transition: color 0.2s;
-}
-.modal-back:hover { color: var(–text); }
+  .modal-back {
+    position: absolute; top: 26px; left: 28px;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; color: var(--muted); background: none;
+    border: none; font-family: inherit; transition: color 0.2s;
+  }
+  .modal-back:hover { color: var(--text); }
 
-.modal-avatar {
-width: 100px; height: 100px; border-radius: 50%;
-background: #f5f5f5; display: flex; align-items: center;
-justify-content: center; font-size: 28px; font-weight: 700;
-color: #ccc; margin-bottom: 20px; overflow: hidden; flex-shrink: 0;
-}
-.modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-avatar {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: #f5f5f5; display: flex; align-items: center;
+    justify-content: center; font-size: 28px; font-weight: 700;
+    color: #ccc; margin-bottom: 20px; overflow: hidden; flex-shrink: 0;
+  }
+  .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
 
-.modal-name  { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
-.modal-count { font-size: 10px; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(–muted); margin-bottom: 6px; }
-.modal-price { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 32px; }
+  .modal-name  { font-size: 13px; font-weight: 800; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
+  .modal-count { font-size: 10px; font-weight: 300; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .modal-price { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 32px; }
 
-.modal-divider { width: 40px; height: 1px; background: var(–border); margin-bottom: 24px; }
+  .modal-divider { width: 40px; height: 1px; background: var(--border); margin-bottom: 24px; }
 
-.modal-instructions {
-font-size: 10px; font-weight: 300; letter-spacing: 0.1em;
-text-transform: uppercase; color: var(–muted); text-align: center;
-max-width: 280px; line-height: 2.2; margin-bottom: 24px;
-}
-.modal-instructions strong { color: var(–text); font-weight: 700; }
+  .modal-instructions {
+    font-size: 10px; font-weight: 300; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted); text-align: center;
+    max-width: 280px; line-height: 2.2; margin-bottom: 24px;
+  }
+  .modal-instructions strong { color: var(--text); font-weight: 700; }
 
-.venmo-btn {
-display: inline-flex; align-items: center; gap: 10px;
-background: #3D95CE; color: white; padding: 14px 32px;
-border-radius: 100px; font-family: inherit; font-size: 11px;
-font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
-text-decoration: none; cursor: pointer; border: none;
-transition: opacity 0.2s; margin-bottom: 14px;
-}
-.venmo-btn:hover { opacity: 0.85; }
+  .venmo-btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: #3D95CE; color: white; padding: 14px 32px;
+    border-radius: 100px; font-family: inherit; font-size: 11px;
+    font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: opacity 0.2s; margin-bottom: 14px;
+  }
+  .venmo-btn:hover { opacity: 0.85; }
 
-.modal-note {
-font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-color: var(–muted); text-align: center; max-width: 260px; line-height: 2;
-}
+  .modal-note {
+    font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); text-align: center; max-width: 260px; line-height: 2;
+  }
 
-.empty {
-grid-column: 1/-1; text-align: center; padding: 80px 20px;
-font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(–muted);
-}
+  .empty {
+    grid-column: 1/-1; text-align: center; padding: 80px 20px;
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+  }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
-header { padding: 18px 16px 14px; }
-.logo-crown { height: 40px; }
-.logo-joshing { font-size: 13px; }
-nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
-nav a { font-size: 9px; }
-.contact-link { font-size: 9px; margin-left: 16px; }
-.grid { grid-template-columns: repeat(2, 1fr); padding: 24px 12px; }
-}
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    header { padding: 18px 16px 14px; }
+    .logo-crown { height: 40px; }
+    .logo-joshing { font-size: 13px; }
+    nav { gap: 16px; flex-wrap: wrap; justify-content: center; }
+    nav a { font-size: 9px; }
+    .contact-link { font-size: 9px; margin-left: 16px; }
+    .grid { grid-template-columns: repeat(2, 1fr); padding: 24px 12px; }
+  }
 </style>
-
 </head>
 <body>
 
@@ -198,7 +196,6 @@ nav a { font-size: 9px; }
 <div class="grid" id="grid"></div>
 
 <!-- MODAL -->
-
 <div class="modal-overlay" id="modal">
   <button class="modal-back" onclick="closeModal()">← Back</button>
   <div class="modal-avatar" id="modal-avatar"></div>
@@ -218,58 +215,61 @@ nav a { font-size: 9px; }
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── UPDATE VENMO HANDLE HERE ──
+  const VENMO = "justjoshing615";
 
-// ── UPDATE VENMO HANDLE HERE ──
-const VENMO = “justjoshing615”;
+  // ── YOUR PEOPLE ──
+  const people = [
+    { name:"Ayden Meadows", count:2140, sport:"basketball", price:25, img:"" },
+    { name:"Weston Hall",   count:1952, sport:"basketball", price:25, img:"" },
+    { name:"Houston Bogle", count:1922, sport:"basketball", price:25, img:"" },
+    { name:"Simon",         count:1638, sport:"basketball", price:25, img:"" },
+    { name:"Mont",          count:1487, sport:"basketball", price:25, img:"" },
+    { name:"Aiden Bush",    count:1455, sport:"basketball", price:25, img:"" },
+    { name:"Ford Procter",  count:1198, sport:"basketball", price:25, img:"" },
+    { name:"Chris Jordan",  count:1115, sport:"basketball", price:25, img:"" },
+    { name:"Dallas",        count: 459, sport:"basketball", price:25, img:"" },
+  ];
 
-// ── YOUR PEOPLE ──
-const people = [
-{ name:“Ayden Meadows”, count:2140, sport:“basketball”, price:25, img:”” },
-{ name:“Weston Hall”,   count:1952, sport:“basketball”, price:25, img:”” },
-{ name:“Houston Bogle”, count:1922, sport:“basketball”, price:25, img:”” },
-{ name:“Simon”,         count:1638, sport:“basketball”, price:25, img:”” },
-{ name:“Mont”,          count:1487, sport:“basketball”, price:25, img:”” },
-{ name:“Aiden Bush”,    count:1455, sport:“basketball”, price:25, img:”” },
-{ name:“Ford Procter”,  count:1198, sport:“basketball”, price:25, img:”” },
-{ name:“Chris Jordan”,  count:1115, sport:“basketball”, price:25, img:”” },
-{ name:“Dallas”,        count: 459, sport:“basketball”, price:25, img:”” },
-];
+  function initials(n) { return n.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(); }
 
-function initials(n) { return n.split(’ ‘).map(w=>w[0]).join(’’).substring(0,2).toUpperCase(); }
+  let currentFilter = 'all';
 
-let currentFilter = ‘all’;
+  function filter(sport, el) {
+    currentFilter = sport;
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    if (el) el.classList.add('active');
+    render();
+  }
 
-function filter(sport, el) {
-currentFilter = sport;
-document.querySelectorAll(‘nav a’).forEach(a => a.classList.remove(‘active’));
-if (el) el.classList.add(‘active’);
-render();
-}
+  function render() {
+    const grid = document.getElementById('grid');
+    const list = people.filter(p => currentFilter === 'all' || p.sport === currentFilter);
+    grid.innerHTML = '';
+    if (!list.length) { grid.innerHTML = '<div class="empty">No athletes in this category yet</div>'; return; }
+    list.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.onclick = () => openModal(p);
+      card.innerHTML = `
+        <div class="avatar">${p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name)}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-count">${p.count.toLocaleString()} photos</div>
+      `;
+      grid.appendChild(card);
+    });
+  }
 
-function render() {
-const grid = document.getElementById(‘grid’);
-const list = people.filter(p => currentFilter === ‘all’ || p.sport === currentFilter);
-grid.innerHTML = ‘’;
-if (!list.length) { grid.innerHTML = ‘<div class="empty">No athletes in this category yet</div>’; return; }
-list.forEach(p => {
-const card = document.createElement(‘div’);
-card.className = ‘card’;
-card.onclick = () => openModal(p);
-card.innerHTML = `<div class="avatar">${p.img ?`<img src="${p.img}" alt="${p.name}">`: initials(p.name)}</div> <div class="card-name">${p.name}</div> <div class="card-count">${p.count.toLocaleString()} photos</div>`;
-grid.appendChild(card);
-});
-}
+  function openModal(p) {
+    const av = document.getElementById('modal-avatar');
+    av.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name);
+    document.getElementById('modal-name').textContent  = p.name;
+    document.getElementById('modal-count').textContent = `${p.count.toLocaleString()} photos available`;
+    document.getElementById('modal-price').textContent = `$${p.price}`;
+    const note = encodeURIComponent(`${p.name} — Just Joshing Media`);
+    document.getElementById('venmo-link').href = `https://venmo.com/${VENMO}?txn=pay&amount=${p.price}&note=${note}`;
+    document.getElementById('modal').classList.add('open');
+  }
 
-function openModal(p) {
-const av = document.getElementById(‘modal-avatar’);
-av.innerHTML = p.img ? `<img src="${p.img}" alt="${p.name}">` : initials(p.name);
-document.getElementById(‘modal-name’).textContent  = p.name;
-document.getElementById(‘modal-count’).textContent = `${p.count.toLocaleString()} photos available`;
-document.getElementById(‘modal-price’).textContent = `$${p.price}`;
-const note = encodeURIComponent(`${p.name} — Just Joshing Media`);
-document.getElementById(‘venmo-link’).href = `https://venmo.com/${VENMO}?txn=pay&amount=${p.price}&note=${note}`;
-document.getElementById(‘modal’).classList.add(‘open’);
-}
-
-function closeModal() { document.getElementById(‘modal’).classList.remove(‘open’); }
-document.getElementById
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+  document.getElementById
