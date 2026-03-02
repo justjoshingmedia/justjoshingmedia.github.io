@@ -49,6 +49,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .ftr-quote { font-family:'Montserrat',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:500px; line-height:2.2; transition:opacity 0.8s; min-height:20px; }
 .ftr-quote.out { opacity:0; }
 .ftr-copy { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#ccc; }
+.modal-nav-bottom .ftr-copy { text-align:center; padding:4px 0 8px; }
 #bottom-bar { position:fixed; bottom:0; left:0; right:0; z-index:100; background:var(--bg); display:flex; flex-direction:column; align-items:center; padding:6px 0 calc(10px + env(safe-area-inset-bottom)); }
 #bottom-bar .hdr-nav { width:100%; }
 #bottom-bar .ftr-copy { margin-top:6px; }
@@ -91,7 +92,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .fy-btn { display:inline-flex; align-items:center; justify-content:center; background:#000; color:#fff; padding:14px 44px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; border:none; cursor:pointer; }
 .fy-btn:hover { opacity:0.75; }
 .fy-note { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-align:center; margin-top:10px; line-height:2; }
-#float-nav { position:fixed; right:12px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:20px; z-index:600; }
+#float-nav { position:fixed; right:12px; top:50%; transform:translateY(-50%) translateZ(0); display:flex; flex-direction:column; align-items:center; gap:20px; z-index:600; will-change:transform; }
 #float-nav button, #float-nav a { display:flex; flex-direction:column; align-items:center; gap:5px; font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:0.14em; color:var(--muted); background:none; border:none; cursor:pointer; text-decoration:none; padding:0; transition:color 0.2s; }
 #float-nav button:hover, #float-nav a:hover { color:var(--text); }
 .fn-icon { width:40px; height:40px; border-radius:50%; background:rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
@@ -99,7 +100,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .fn-crown img { width:26px; height:26px; object-fit:contain; opacity:0.45; transition:opacity 0.2s; }
 #float-nav button:hover .fn-crown img { opacity:1; }
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr);}}
-@media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:8px;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
+@media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:0;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(3,1fr);}#wrap{padding-left:44px;padding-right:44px;}}
 </style>
 </head>
