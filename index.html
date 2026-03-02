@@ -29,26 +29,29 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .hdr-nav a.on, .hdr-nav a:hover { color:var(--text); }
 .bn-icon { width:32px; height:32px; border-radius:50%; background:rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
 .hdr-nav a.on .bn-icon, .hdr-nav a:hover .bn-icon { background:rgba(0,0,0,0.12); }
-.hdr-quote { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-align:center; padding:10px 16px 8px; transition:opacity 0.8s; min-height:15px; }
+.hdr-quote { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-align:center; padding:10px 16px 8px; transition:opacity 1.4s; min-height:15px; }
 .hdr-quote.out { opacity:0; }
 #wrap { flex:1; padding-left:72px; padding-right:72px; padding-bottom:84px; }
 .grid { display:grid; grid-template-columns:repeat(8,1fr); gap:3px; }
 .card { background:var(--bg); cursor:pointer; overflow:hidden; }
-.card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; }
-.card-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:filter 0.4s,transform 0.4s; }
-.card:hover .card-img img { filter:grayscale(0%); transform:scale(1.03); }
+.card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+.card-img img:not(.card-color-half) { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:transform 0.4s; }
+.card:hover .card-img img:not(.card-color-half) { transform:scale(1.03); }
+.card-color-half { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:none; clip-path:inset(0 0 0 100%); transition:clip-path 0.8s,transform 0.4s; }
+.card:hover .card-color-half { clip-path:inset(0 0 0 50%); transform:scale(1.03); }
 .card-init { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.08em; color:#ccc; }
 .card-info { padding:4px 4px 6px; text-align:center; }
-.card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; color:var(--text); opacity:0.5; transition:opacity 0.3s; }
+.card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; color:var(--text); opacity:0.5; transition:opacity 0.3s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .card:hover .card-name { opacity:1; }
-.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; will-change:contents; }
+.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; white-space:nowrap; overflow:hidden; }
 .card:hover .card-count { opacity:1; }
 .empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(--bg); }
 .empty span { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; color:var(--muted); }
 .ftr { padding:32px 24px 24px; display:flex; flex-direction:column; align-items:center; gap:12px; flex-shrink:0; background:var(--bg); }
-.ftr-quote { font-family:'Montserrat',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:500px; line-height:2.2; transition:opacity 0.8s; min-height:20px; }
+.ftr-quote { font-family:'Montserrat',sans-serif; font-size:12px; font-weight:300; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); text-align:center; max-width:500px; line-height:2.2; transition:opacity 1.4s; min-height:20px; }
 .ftr-quote.out { opacity:0; }
-.ftr-copy { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#ccc; }
+.ftr-copy { font-family:'Montserrat',sans-serif; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:#ccc; text-align:center; }
+.modal-nav-bottom .ftr-copy { padding:4px 0 8px; }
 #bottom-bar { position:fixed; bottom:0; left:0; right:0; z-index:100; background:var(--bg); display:flex; flex-direction:column; align-items:center; padding:6px 0 calc(10px + env(safe-area-inset-bottom)); }
 #bottom-bar .hdr-nav { width:100%; }
 #bottom-bar .ftr-copy { margin-top:6px; }
@@ -56,7 +59,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .modal.open { display:flex; }
 .modal-hdr { position:sticky; top:0; z-index:10; background:var(--bg); }
 .modal-scroll { flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch; }
-.modal-nav-bottom { flex-shrink:0; background:var(--bg); border-top:1px solid rgba(0,0,0,0.06); }
+.modal-nav-bottom { flex-shrink:0; background:var(--bg); }
 .modal-body { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:14px 24px 14px; }
 .m-img { width:64px; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; margin-bottom:12px; }
 .m-img img { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); }
@@ -91,7 +94,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .fy-btn { display:inline-flex; align-items:center; justify-content:center; background:#000; color:#fff; padding:14px 44px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; border:none; cursor:pointer; }
 .fy-btn:hover { opacity:0.75; }
 .fy-note { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); text-align:center; margin-top:10px; line-height:2; }
-#float-nav { position:fixed; right:12px; top:50%; transform:translateY(-50%); display:flex; flex-direction:column; align-items:center; gap:20px; z-index:600; }
+#float-nav { position:fixed; right:12px; top:50%; transform:translateY(-50%) translateZ(0); display:flex; flex-direction:column; align-items:center; gap:20px; z-index:600; will-change:transform; }
 #float-nav button, #float-nav a { display:flex; flex-direction:column; align-items:center; gap:5px; font-family:'Bebas Neue',sans-serif; font-size:9px; letter-spacing:0.14em; color:var(--muted); background:none; border:none; cursor:pointer; text-decoration:none; padding:0; transition:color 0.2s; }
 #float-nav button:hover, #float-nav a:hover { color:var(--text); }
 .fn-icon { width:40px; height:40px; border-radius:50%; background:rgba(0,0,0,0.06); display:flex; align-items:center; justify-content:center; transition:background 0.2s; }
@@ -99,7 +102,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .fn-crown img { width:26px; height:26px; object-fit:contain; opacity:0.45; transition:opacity 0.2s; }
 #float-nav button:hover .fn-crown img { opacity:1; }
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr);}}
-@media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:8px;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
+@media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:0;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(3,1fr);}#wrap{padding-left:44px;padding-right:44px;}}
 </style>
 </head>
@@ -206,7 +209,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('commercial',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Commercial</a>
       <a onclick="goHome();filter('events',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Events</a>
     </div>
-    <div class="ftr-copy" style="text-align:center;padding:4px 0 8px;">&copy; Just Joshing Media</div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
   </div>
 </div>
 <div class="modal" id="am">
@@ -327,7 +330,7 @@ const VENMO="justjoshing615";
 const quotes=["We define a standard.","Memories and content, with intention.","Performance documentation. Cinematic standard.","Every frame has a moment.","Ideas are cheap. Execution is everything.","How you do anything is how you do everything.","Greatness is a lot of small things done well, stacked up.","Do what you say you will do. Faster and better than people expect.","Focus and effort. We control both.","Luck is when opportunity meets preparation.","It's not about who did it first — it's about who did it right.","When in doubt, figure it out.","If you're not changing, you're stuck.","Innovation distinguishes between a leader and a follower.","Details matter. It's worth waiting to get it right.","Simple can be harder than complex.","Stay hungry. Stay foolish.","The only way to do great work is to love what you do.","Design is not just what it looks like — it's how it works.","Built for exposure. Designed to last.","Capture. Color grade. Edit. Deliver.","You're only a success at the moment you perform a successful act. You must do it again.","If you don't want to be like most people, don't take advice from most people."];
 let qi=Math.floor(Math.random()*quotes.length);
 function setQ(id){const e=document.getElementById(id);if(e)e.textContent=quotes[qi];}
-function rotateQ(){['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},900);}
+function rotateQ(){['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},1500);}
 function price(n){return Math.ceil(n/250)*50;}
 function inits(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 const people=[
@@ -404,7 +407,7 @@ function render(){
     const card=document.createElement('div');
     card.className='card';
     card.onclick=()=>openModal(p);
-    card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
+    card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}"><img class="card-color-half" src="${p.img}" alt="">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
     grid.appendChild(card);
     setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,p.count,20000);},i*150);
   });
@@ -413,7 +416,7 @@ function openModal(p){
   const img=document.getElementById('pm-img');
   img.innerHTML=p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="m-init">${inits(p.name)}</div>`;
   document.getElementById('pm-name').textContent=p.name;
-  document.getElementById('pm-count').textContent=p.count.toLocaleString()+' photos';
+  activeFrames.forEach(id=>cancelAnimationFrame(id));activeFrames=[];const ce=document.getElementById('pm-count');ce.textContent='0 photos';counter(ce,p.count,1500);
   const pe=document.getElementById('pm-price');
   pe.textContent='$'+price(p.count);
   pe.classList.remove('show');
