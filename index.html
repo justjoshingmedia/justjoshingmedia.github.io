@@ -81,8 +81,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .fy-grid-img { width:100%; height:auto; display:block; }
 .fy-btn { display:inline-flex; align-items:center; justify-content:center; background:#000; color:#fff; padding:14px 44px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.2em; text-decoration:none; transition:opacity 0.2s; border:none; cursor:pointer; }
 .fy-btn:hover { opacity:0.75; }
-.card-req { display:block; width:100%; background:#000; color:#fff; border:none; cursor:pointer; font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.18em; text-transform:uppercase; padding:9px 4px; transition:opacity 0.2s; }
-.card-req:hover { opacity:0.7; }
+.fy-cell { position:relative; overflow:hidden; }
+.fy-cell-btn { position:absolute; bottom:0; left:0; right:0; background:rgba(0,0,0,0.72); color:#fff; font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.18em; text-transform:uppercase; text-align:center; padding:11px 8px; text-decoration:none; display:block; transition:background 0.2s; }
+.fy-cell-btn:hover { background:rgba(0,0,0,0.92); }
 @media(max-width:900px){.grid{grid-template-columns:repeat(4,1fr);}}
 @media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:12px;padding:8px 10px;}.hdr-sub a,.hdr-sub button{padding:7px 16px;}.grid{grid-template-columns:repeat(3,1fr);}.fy-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(2,1fr);}.fy-grid{grid-template-columns:repeat(1,1fr);}}
@@ -242,15 +243,15 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="fy-title">Find Yourself</div>
     <div class="fy-sub">Browse the gallery below. See yourself? Request your photos.</div>
     <div class="fy-grid">
-      <img class="fy-grid-img" src="images/IMG_9231.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9232.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9233.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9234.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9235.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9236.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9237.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9238.jpeg" alt="Event photo">
-      <img class="fy-grid-img" src="images/IMG_9239.jpeg" alt="Event photo">
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9231.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9231">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9232.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9232">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9233.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9233">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9234.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9234">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9235.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9235">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9236.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9236">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9237.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9237">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9238.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9238">Request Photos for Purchase</a></div>
+      <div class="fy-cell"><img class="fy-grid-img" src="images/IMG_9239.jpeg" alt="Event photo"><a class="fy-cell-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20IMG_9239">Request Photos for Purchase</a></div>
     </div>
     <a class="fy-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20Find%20Yourself">Request Photos</a>
   </div>
@@ -334,11 +335,6 @@ function render(){
     card.className='card';
     card.onclick=()=>openModal(p);
     card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
-    const btn=document.createElement('button');
-    btn.className='card-req';
-    btn.textContent='Request Photos for Purchase';
-    btn.onclick=(e)=>{e.stopPropagation();openModal(p);};
-    card.appendChild(btn);
     grid.appendChild(card);
     setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,p.count,13000);},i*150);
   });
