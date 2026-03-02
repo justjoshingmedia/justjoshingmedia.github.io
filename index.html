@@ -41,7 +41,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .card-info { padding:4px 4px 6px; text-align:center; }
 .card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; color:var(--text); opacity:0.5; transition:opacity 0.3s; }
 .card:hover .card-name { opacity:1; }
-.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; }
+.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; will-change:contents; }
 .card:hover .card-count { opacity:1; }
 .empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(--bg); }
 .empty span { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; color:var(--muted); }
@@ -267,9 +267,6 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     </div>
     <div class="ab-close">Performance documentation.<br>Cinematic standard.</div>
   </div>
-  <footer class="ftr">
-    <div class="ftr-copy">&copy; Just Joshing Media</div>
-  </footer>
   </div>
   <div class="modal-nav-bottom">
     <div class="hdr-nav">
@@ -280,6 +277,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('commercial',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Commercial</a>
       <a onclick="goHome();filter('events',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Events</a>
     </div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
   </div>
 </div>
 <div class="modal" id="fym">
@@ -311,9 +309,6 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <a class="fy-btn" href="mailto:justjoshing615@gmail.com?subject=Photo%20Request%20%E2%80%94%20Find%20Me%3F">Request Photos for Purchase</a>
     <div class="fy-note">Include your name and photo count when requesting.</div>
   </div>
-  <footer class="ftr">
-    <div class="ftr-copy">&copy; Just Joshing Media</div>
-  </footer>
   </div>
   <div class="modal-nav-bottom">
     <div class="hdr-nav">
@@ -324,6 +319,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('commercial',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Commercial</a>
       <a onclick="goHome();filter('events',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Events</a>
     </div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
   </div>
 </div>
 <script>
@@ -384,17 +380,21 @@ function filter(sport,el){
   if(el)el.classList.add('on');
   render();
 }
+let activeFrames=[];
 function counter(el,target,dur){
   const t0=performance.now();
-  (function tick(now){
+  function tick(now){
     const p=Math.min((now-t0)/dur,1);
     const e=1-Math.pow(1-p,3);
     el.textContent=Math.floor(e*target).toLocaleString()+' photos';
-    if(p<1)requestAnimationFrame(tick);
+    if(p<1){activeFrames.push(requestAnimationFrame(tick));}
     else el.textContent=target.toLocaleString()+' photos';
-  })(performance.now());
+  }
+  activeFrames.push(requestAnimationFrame(tick));
 }
 function render(){
+  activeFrames.forEach(id=>cancelAnimationFrame(id));
+  activeFrames=[];
   const grid=document.getElementById('grid');
   const list=people.filter(p=>cf==='all'||p.sport===cf);
   grid.innerHTML='';
