@@ -23,12 +23,12 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .hdr-mid { flex:1; display:flex; align-items:center; justify-content:center; }
 .hdr-brand { font-family:'Bebas Neue',sans-serif; font-size:23px; letter-spacing:0.22em; text-transform:uppercase; }
 .hdr-space { width:76px; flex-shrink:0; }
-.hdr-nav { display:flex; align-items:center; justify-content:center; overflow-x:auto; scrollbar-width:none; }
+.hdr-nav { display:flex; align-items:center; justify-content:space-evenly; overflow-x:auto; scrollbar-width:none; }
 .hdr-nav::-webkit-scrollbar { display:none; }
 .hdr-nav a { font-family:'Bebas Neue',sans-serif; font-size:14px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); padding:9px 12px; cursor:pointer; transition:color 0.2s; white-space:nowrap; display:block; }
 .hdr-nav a.on, .hdr-nav a:hover { color:var(--text); }
-.hdr-sub { display:flex; align-items:center; justify-content:center; }
-.hdr-sub a, .hdr-sub button { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); background:none; border:none; cursor:pointer; padding:8px 28px; transition:color 0.2s; display:block; }
+.hdr-sub { display:flex; align-items:center; justify-content:space-evenly; }
+.hdr-sub a, .hdr-sub button { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.16em; text-decoration:none; color:var(--muted); background:none; border:none; cursor:pointer; padding:8px 16px; transition:color 0.2s; display:block; flex:1; text-align:center; }
 .hdr-sub a:hover, .hdr-sub button:hover { color:var(--text); }
 #wrap { flex:1; }
 .grid { display:grid; grid-template-columns:repeat(6,1fr); }
@@ -111,9 +111,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="filter('events',this)">Events</a>
     </div>
     <div class="hdr-sub">
-      <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="openAbout()">About</button>
       <button onclick="openFindYourself()">Find Yourself</button>
+      <a href="mailto:justjoshing615@gmail.com">Contact</a>
     </div>
   </div>
   <div id="wrap"><div class="grid" id="grid"></div></div>
@@ -138,9 +138,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('events',null)">Events</a>
     </div>
     <div class="hdr-sub">
-      <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="goHome();openAbout()">About</button>
       <button onclick="goHome();openFindYourself()">Find Yourself</button>
+      <a href="mailto:justjoshing615@gmail.com">Contact</a>
     </div>
   </div>
   <div class="modal-body">
@@ -191,9 +191,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('events',null)">Events</a>
     </div>
     <div class="hdr-sub">
-      <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="goHome()">Close</button>
       <button onclick="document.getElementById('am').classList.remove('open');openFindYourself()">Find Yourself</button>
+      <a href="mailto:justjoshing615@gmail.com">Contact</a>
     </div>
   </div>
   <div class="about-body">
@@ -266,9 +266,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <a onclick="goHome();filter('events',null)">Events</a>
     </div>
     <div class="hdr-sub">
-      <a href="mailto:justjoshing615@gmail.com">Contact</a>
       <button onclick="goHome();openAbout()">About</button>
       <button onclick="goHome()">Close</button>
+      <a href="mailto:justjoshing615@gmail.com">Contact</a>
     </div>
   </div>
   <div class="fy-body">
