@@ -33,7 +33,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .hdr-quote.out { opacity:0; }
 #wrap { flex:1; padding-left:72px; padding-right:72px; padding-bottom:84px; }
 .grid { display:grid; grid-template-columns:repeat(8,1fr); gap:12px; }
-.grid--galleries { grid-template-columns:repeat(5,1fr) !important; gap:16px; }
+.grid--galleries { grid-template-columns:repeat(7,1fr) !important; gap:14px; }
 @media(max-width:900px){ .grid--galleries { grid-template-columns:repeat(3,1fr) !important; } }
 @media(max-width:600px){ .grid--galleries { grid-template-columns:repeat(2,1fr) !important; gap:12px; } }
 .card { background:var(--bg); cursor:pointer; overflow:hidden; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.13); transition:box-shadow 0.3s,transform 0.3s; }
@@ -501,16 +501,19 @@ function openModal(p){
   setQ('pm-hq');
   document.getElementById('pm').classList.add('open');
   document.body.style.overflow='hidden';
+  history.pushState({modal:'pm'},'','');
 }
 function openAbout(){
   setQ('am-hq');
   document.getElementById('am').classList.add('open');
   document.body.style.overflow='hidden';
+  history.pushState({modal:'am'},'','');
 }
 function openFindYourself(){
   setQ('fym-hq');
   document.getElementById('fym').classList.add('open');
   document.body.style.overflow='hidden';
+  history.pushState({modal:'fym'},'','');
 }
 function toggleCart(id,btn){
   const item=document.getElementById('gmitem-'+id);
@@ -555,7 +558,13 @@ function openGalleryModal(g){
   setQ('gm-hq');
   document.getElementById('gm').classList.add('open');
   document.body.style.overflow='hidden';
+  history.pushState({modal:'gm'},'','');
 }
+window.addEventListener('popstate',()=>{
+  ['pm','am','fym','gm'].forEach(id=>document.getElementById(id)?.classList.remove('open'));
+  activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
+  document.body.style.overflow='';
+});
 window.addEventListener('load',()=>{
   const crown=document.getElementById('intro-crown');
   const name=document.getElementById('intro-name');
