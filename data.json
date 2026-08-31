@@ -1,0 +1,38 @@
+{
+  "people": [
+    {"name":"Ayden Meadows","count":2140,"sport":"basketball","img":"Ayden%20Meadows.jpg"},
+    {"name":"Weston Hall","count":1952,"sport":"basketball","img":"Weston%20Hall.jpg"},
+    {"name":"Houston Bogle","count":1922,"sport":"basketball","img":"Houston%20Bogle.jpg"},
+    {"name":"Simon","count":1638,"sport":"basketball","img":"Simon.jpg"},
+    {"name":"Mont","count":1487,"sport":"basketball","img":"Mont.jpg"},
+    {"name":"Aiden Bush","count":1462,"sport":"basketball","img":"Aiden%20Bush.jpg"},
+    {"name":"Ford Procter","count":1198,"sport":"basketball","img":"Ford%20Procter.jpg"},
+    {"name":"Chris Jordan","count":1115,"sport":"basketball","img":"Chris%20Jordan.jpg"},
+    {"name":"Dallas Hodges","count":459,"sport":"basketball","img":"Dallas%20Hodges.jpg"},
+    {"name":"Michael Muyskens","count":1422,"sport":"basketball","img":"Michael%20Muyskens.jpg"},
+    {"name":"Lincoln Elrod","count":1244,"sport":"basketball","img":"Lincoln%20Elrod.jpg"},
+    {"name":"Garrett Rippy","count":829,"sport":"basketball","img":"Garrett%20Rippey.jpg"},
+    {"name":"AJ Sawyers","count":784,"sport":"basketball","img":"AJ%20Sawyers.jpg"},
+    {"name":"Deshon Sawyers","count":711,"sport":"basketball","img":"Deshon%20Sawyers.jpg"},
+    {"name":"Jasihir Jones","count":588,"sport":"basketball","img":"Jasihir%20Jones.jpg"},
+    {"name":"Coach Hall","count":535,"sport":"basketball","img":"Coach%20Hall.jpg"},
+    {"name":"Karon Wilson","count":408,"sport":"basketball","img":"Karon%20Wilson.jpg"},
+    {"name":"Reggie Brown","count":259,"sport":"basketball","img":"Reggie%20Brown.jpg"},
+    {"name":"Nemo","count":162,"sport":"basketball","img":"Nemo.jpg"},
+    {"name":"Marco","count":80,"sport":"basketball","img":"Marco.jpg"}
+  ],
+  "galleries": [
+    {
+      "name": "HHS Football",
+      "sport": "football",
+      "img": "images/hhs-football/cover.jpg",
+      "photos": []
+    },
+    {
+      "name": "Ellis Football",
+      "sport": "football",
+      "img": "images/ellis-football/cover.jpg",
+      "photos": []
+    }
+  ]
+}

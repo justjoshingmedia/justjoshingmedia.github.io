@@ -104,6 +104,19 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr);}}
 @media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:7px;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(3,1fr);}#wrap{padding-left:44px;padding-right:44px;}}
+.gm-body{padding:20px 12px 32px;max-width:960px;margin:0 auto;}
+.gm-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.18em;text-transform:uppercase;text-align:center;margin-bottom:4px;}
+.gm-sub{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:6px;}
+.gm-note{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa;text-align:center;margin-bottom:20px;line-height:1.8;max-width:280px;margin-left:auto;margin-right:auto;}
+.gm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
+@media(max-width:600px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
+.gm-item{position:relative;overflow:hidden;}
+.gm-thumb{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;}
+.gm-tag{position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.1em;padding:2px 6px;}
+.gm-pay{display:block;width:100%;background:#000;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.14em;padding:7px 0;text-align:center;border:none;cursor:pointer;transition:opacity 0.2s;}
+.gm-pay:hover{opacity:0.75;}
+.gm-dl{display:none;width:100%;background:#fff;color:#000;border:1px solid #ddd;border-top:none;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.14em;padding:6px 0;text-align:center;text-decoration:none;}
+.gm-dl.visible{display:block;}
 </style>
 </head>
 <body>
@@ -325,12 +338,41 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="ftr-copy">&copy; Just Joshing Media</div>
   </div>
 </div>
+<div class="modal" id="gm">
+  <div class="modal-hdr">
+    <div class="hdr-top">
+      <div class="hdr-crown" onclick="goHome()"><img src="Logo_png.PNG" alt=""></div>
+      <div class="hdr-mid"><div class="hdr-brand">Just Joshing Media</div></div>
+      <div class="hdr-space"></div>
+    </div>
+    <div class="hdr-quote" id="gm-hq"></div>
+  </div>
+  <div class="modal-scroll">
+    <div class="gm-body">
+      <div class="gm-title" id="gm-title"></div>
+      <div class="gm-sub" id="gm-sub"></div>
+      <div class="gm-note">Tap Pay on Venmo — the photo code goes in the note automatically. Download button appears right after.</div>
+      <div class="gm-grid" id="gm-grid"></div>
+    </div>
+  </div>
+  <div class="modal-nav-bottom">
+    <div class="hdr-nav">
+      <a onclick="goHome()"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="5" r="2"/><circle cx="12" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="12" cy="19" r="2"/><circle cx="19" cy="19" r="2"/></svg></span>All</a>
+      <a onclick="goHome();filter('basketball',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M3.5 9 Q12 12 3.5 15"/><path d="M20.5 9 Q12 12 20.5 15"/></svg></span>Basketball</a>
+      <a onclick="goHome();filter('football',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12 Q7 5 12 5 Q17 5 22 12 Q17 19 12 19 Q7 19 2 12Z"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="9.5" y1="10" x2="14.5" y2="10"/><line x1="9.5" y1="14" x2="14.5" y2="14"/></svg></span>Football</a>
+      <a onclick="goHome();filter('film',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.55-2.27A1 1 0 0 1 21 8.73v6.54a1 1 0 0 1-1.45.91L15 14"/><rect x="2" y="7" width="13" height="10" rx="2"/></svg></span>Film</a>
+      <a onclick="goHome();filter('commercial',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></span>Commercial</a>
+      <a onclick="goHome();filter('events',null)"><span class="bn-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Events</a>
+    </div>
+    <div class="ftr-copy">&copy; Just Joshing Media</div>
+  </div>
+</div>
 <script>
 const VENMO="justjoshing615";
 const quotes=["We define a standard.","Memories and content, with intention.","Performance documentation. Cinematic standard.","Every frame has a moment.","Ideas are cheap. Execution is everything.","How you do anything is how you do everything.","Greatness is a lot of small things done well, stacked up.","Do what you say you will do. Faster and better than people expect.","Focus and effort. We control both.","Luck is when opportunity meets preparation.","It's not about who did it first — it's about who did it right.","When in doubt, figure it out.","If you're not changing, you're stuck.","Innovation distinguishes between a leader and a follower.","Details matter. It's worth waiting to get it right.","Simple can be harder than complex.","Stay hungry. Stay foolish.","The only way to do great work is to love what you do.","Design is not just what it looks like — it's how it works.","Built for exposure. Designed to last.","Capture. Color grade. Edit. Deliver.","You're only a success at the moment you perform a successful act. You must do it again.","If you don't want to be like most people, don't take advice from most people."];
 let qi=Math.floor(Math.random()*quotes.length);
 function setQ(id){const e=document.getElementById(id);if(e)e.textContent=quotes[qi];}
-function rotateQ(){['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['hq','pm-hq','am-hq','fym-hq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},1500);}
+function rotateQ(){['hq','pm-hq','am-hq','fym-hq','gm-hq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['hq','pm-hq','am-hq','fym-hq','gm-hq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},1500);}
 function price(n){return Math.ceil(n/250)*50;}
 function inits(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
 const people=[
@@ -357,11 +399,26 @@ const people=[
 
 ];
 people.sort((a,b)=>a.name.localeCompare(b.name));
+const galleries=[
+  {name:"HHS Football",sport:"football",img:"images/IMG_9243.jpeg",photos:[
+    {id:"HHS-001",file:"images/IMG_9232.jpeg"},
+    {id:"HHS-002",file:"images/IMG_9233.jpeg"},
+    {id:"HHS-003",file:"images/IMG_9234.jpeg"},
+    {id:"HHS-004",file:"images/IMG_9235.jpeg"},
+    {id:"HHS-005",file:"images/IMG_9236.jpeg"},
+  ]},
+  {name:"Ellis Football",sport:"football",img:"images/IMG_9237.jpeg",photos:[
+    {id:"ELI-001",file:"images/IMG_9237.jpeg"},
+    {id:"ELI-002",file:"images/IMG_9238.jpeg"},
+    {id:"ELI-003",file:"images/IMG_9239.jpeg"},
+  ]},
+];
 let cf='all';
 function floatNav(action){
   document.getElementById('pm').classList.remove('open');
   document.getElementById('am').classList.remove('open');
   document.getElementById('fym').classList.remove('open');
+  document.getElementById('gm').classList.remove('open');
   document.body.style.overflow='';
   if(action==='about') openAbout();
   else if(action==='find') openFindYourself();
@@ -370,6 +427,7 @@ function goHome(){
   document.getElementById('pm').classList.remove('open');
   document.getElementById('am').classList.remove('open');
   document.getElementById('fym').classList.remove('open');
+  document.getElementById('gm').classList.remove('open');
   document.body.style.overflow='';
   window.scrollTo({top:0,behavior:'smooth'});
   cf='all';
@@ -399,17 +457,20 @@ function render(){
   activeFrames.forEach(id=>cancelAnimationFrame(id));
   activeFrames=[];
   const grid=document.getElementById('grid');
-  const list=people.filter(p=>cf==='all'||p.sport===cf);
+  const glist=galleries.filter(g=>cf==='all'||g.sport===cf);
+  const plist=people.filter(p=>cf==='all'||p.sport===cf);
+  const list=[...glist.map(g=>({...g,_gallery:true})),...plist];
   grid.innerHTML='';
   if(!list.length){grid.innerHTML='<div class="empty"><span>Not Every Frame Is Public Yet</span></div>';return;}
   list.forEach((p,i)=>{
     const id='c'+i+'_'+Math.random().toString(36).slice(2);
     const card=document.createElement('div');
     card.className='card';
-    card.onclick=()=>openModal(p);
+    const cnt=p._gallery?p.photos.length:p.count;
+    card.onclick=()=>p._gallery?openGalleryModal(p):openModal(p);
     card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}"><img class="card-color-half" src="${p.img}" alt="">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
     grid.appendChild(card);
-    setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,p.count,20000);},i*150);
+    setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,cnt,20000);},i*150);
   });
 }
 function openModal(p){
@@ -435,6 +496,23 @@ function openAbout(){
 function openFindYourself(){
   setQ('fym-hq');
   document.getElementById('fym').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function openGalleryModal(g){
+  document.getElementById('gm-title').textContent=g.name;
+  document.getElementById('gm-sub').textContent=g.photos.length+' photos · $1 each';
+  const grid=document.getElementById('gm-grid');
+  grid.innerHTML='';
+  g.photos.forEach(photo=>{
+    const item=document.createElement('div');
+    item.className='gm-item';
+    const note=encodeURIComponent(g.name+' — '+photo.id+' — Just Joshing Media');
+    const venmoUrl='https://venmo.com/'+VENMO+'?txn=pay&amount=1&note='+note;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><div class="gm-tag">$1</div><button class="gm-pay" onclick="this.textContent='Sent ✓';this.style.opacity='0.4';this.nextElementSibling.classList.add('visible');window.open('${venmoUrl}','_blank')">Pay on Venmo</button><a class="gm-dl" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
+    grid.appendChild(item);
+  });
+  setQ('gm-hq');
+  document.getElementById('gm').classList.add('open');
   document.body.style.overflow='hidden';
 }
 window.addEventListener('load',()=>{
