@@ -32,7 +32,10 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .hdr-quote { font-family:'Montserrat',sans-serif; font-size:11px; font-weight:300; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); text-align:center; padding:10px 16px 8px; transition:opacity 1.4s; min-height:15px; }
 .hdr-quote.out { opacity:0; }
 #wrap { flex:1; padding-left:72px; padding-right:72px; padding-bottom:84px; }
-.grid { display:grid; grid-template-columns:repeat(8,1fr); gap:3px; }
+.grid { display:grid; grid-template-columns:repeat(8,1fr); gap:12px; }
+.grid--galleries { grid-template-columns:repeat(5,1fr) !important; gap:16px; }
+@media(max-width:900px){ .grid--galleries { grid-template-columns:repeat(3,1fr) !important; } }
+@media(max-width:600px){ .grid--galleries { grid-template-columns:repeat(2,1fr) !important; gap:12px; } }
 .card { background:var(--bg); cursor:pointer; overflow:hidden; border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,0.13); transition:box-shadow 0.3s,transform 0.3s; }
 .card:hover { box-shadow:0 8px 28px rgba(0,0,0,0.18); transform:translateY(-2px); }
 .card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
@@ -41,11 +44,14 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .card-color-half { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:none; clip-path:polygon(65% 0,100% 0,100% 100%,35% 100%); transition:opacity 0.4s,transform 0.4s; }
 .card:hover .card-color-half { transform:scale(1.03); }
 .card-init { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.08em; color:#ccc; }
-.card-info { padding:4px 4px 6px; text-align:center; }
-.card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2px; color:var(--text); opacity:0.5; transition:opacity 0.3s; }
+.card-coming { width:100%; height:100%; background:#f4f4f4; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; }
+.card-coming-icon { opacity:0.2; }
+.card-coming-label { font-family:'Bebas Neue',sans-serif; font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:#bbb; }
+.card-sport-badge { position:absolute; bottom:8px; right:8px; opacity:0; transition:opacity 0.3s; color:#fff; filter:drop-shadow(0 1px 4px rgba(0,0,0,0.6)); pointer-events:none; }
+.card:hover .card-sport-badge { opacity:1; }
+.card-info { padding:6px 4px 8px; text-align:center; }
+.card-name { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; text-transform:uppercase; color:var(--text); opacity:0.55; transition:opacity 0.3s; }
 .card:hover .card-name { opacity:1; }
-.card-count { font-family:'Montserrat',sans-serif; font-size:10px; font-weight:400; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); opacity:0.5; transition:opacity 0.3s; white-space:nowrap; overflow:hidden; }
-.card:hover .card-count { opacity:1; }
 .empty { grid-column:1/-1; display:flex; align-items:center; justify-content:center; padding:100px 20px; background:var(--bg); }
 .empty span { font-family:'Bebas Neue',sans-serif; font-size:13px; letter-spacing:0.12em; color:var(--muted); }
 .ftr { padding:32px 24px 24px; display:flex; flex-direction:column; align-items:center; gap:12px; flex-shrink:0; background:var(--bg); }
@@ -390,7 +396,29 @@ function setQ(id){const e=document.getElementById(id);if(e)e.textContent=quotes[
 function rotateQ(){['hq','pm-hq','am-hq','fym-hq','gm-hq'].forEach(id=>{const e=document.getElementById(id);if(e)e.classList.add('out');});setTimeout(()=>{qi=(qi+1)%quotes.length;['hq','pm-hq','am-hq','fym-hq','gm-hq'].forEach(id=>{const e=document.getElementById(id);if(!e)return;e.textContent=quotes[qi];e.classList.remove('out');});},1500);}
 function price(n){return Math.ceil(n/250)*50;}
 function inits(n){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();}
-const people=[];
+const people=[
+  {name:"Ayden Meadows",count:2140,sport:"basketball",img:"Ayden%20Meadows.jpg"},
+  {name:"Weston Hall",count:1952,sport:"basketball",img:"Weston%20Hall.jpg"},
+  {name:"Houston Bogle",count:1922,sport:"basketball",img:"Houston%20Bogle.jpg"},
+  {name:"Simon",count:1638,sport:"basketball",img:"Simon.jpg"},
+  {name:"Mont",count:1487,sport:"basketball",img:"Mont.jpg"},
+  {name:"Aiden Bush",count:1462,sport:"basketball",img:"Aiden%20Bush.jpg"},
+  {name:"Ford Procter",count:1198,sport:"basketball",img:"Ford%20Procter.jpg"},
+  {name:"Chris Jordan",count:1115,sport:"basketball",img:"Chris%20Jordan.jpg"},
+  {name:"Dallas Hodges",count:459,sport:"basketball",img:"Dallas%20Hodges.jpg"},
+  {name:"Michael Muyskens",count:1422,sport:"basketball",img:"Michael%20Muyskens.jpg"},
+  {name:"Lincoln Elrod",count:1244,sport:"basketball",img:"Lincoln%20Elrod.jpg"},
+  {name:"Garrett Rippy",count:829,sport:"basketball",img:"Garrett%20Rippey.jpg"},
+  {name:"AJ Sawyers",count:784,sport:"basketball",img:"AJ%20Sawyers.jpg"},
+  {name:"Deshon Sawyers",count:711,sport:"basketball",img:"Deshon%20Sawyers.jpg"},
+  {name:"Jasihir Jones",count:588,sport:"basketball",img:"Jasihir%20Jones.jpg"},
+  {name:"Coach Hall",count:535,sport:"basketball",img:"Coach%20Hall.jpg"},
+  {name:"Karon Wilson",count:408,sport:"basketball",img:"Karon%20Wilson.jpg"},
+  {name:"Reggie Brown",count:259,sport:"basketball",img:"Reggie%20Brown.jpg"},
+  {name:"Nemo",count:162,sport:"basketball",img:"Nemo.jpg"},
+  {name:"Marco",count:80,sport:"basketball",img:"Marco.jpg"},
+];
+people.sort((a,b)=>a.name.localeCompare(b.name));
 const galleries=[
   {name:"HHS Basketball 2025",sport:"basketball",img:"Ayden%20Meadows.jpg",photos:[
     {id:"BB25-Ayden-Meadows",file:"Ayden%20Meadows.jpg"},
@@ -474,35 +502,42 @@ function counter(el,target,dur){
   }
   activeFrames.push(requestAnimationFrame(tick));
 }
+function sportSvg(sport,size){
+  const s=size||28;
+  if(sport==='football') return `<svg width="${s}" height="${s}" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="24" cy="24" rx="18" ry="11"/><line x1="6" y1="24" x2="42" y2="24"/><line x1="24" y1="13" x2="24" y2="35"/><line x1="16.5" y1="16" x2="16.5" y2="32"/><line x1="31.5" y1="16" x2="31.5" y2="32"/></svg>`;
+  return `<svg width="${s}" height="${s}" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="24" cy="24" r="18"/><path d="M6 24 C12 16,36 16,42 24"/><path d="M6 24 C12 32,36 32,42 24"/><path d="M24 6 C16 12,16 36,24 42"/><path d="M24 6 C32 12,32 36,24 42"/></svg>`;
+}
 function render(){
   activeFrames.forEach(id=>cancelAnimationFrame(id));activeFrames=[];
   activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   const grid=document.getElementById('grid');
-  const glist=galleries.filter(g=>cf==='all'||g.sport===cf);
-  const plist=people.filter(p=>cf==='all'||p.sport===cf);
-  const list=[...glist.map(g=>({...g,_gallery:true})),...plist];
+  const glist=galleries.filter(g=>cf==='all'||g.sport===cf).map(g=>({...g,_gallery:true}));
+  const plist=cf==='all'?[]:people.filter(p=>p.sport===cf);
+  const list=[...glist,...plist];
+  grid.className=list.every(p=>p._gallery)?'grid grid--galleries':'grid';
   grid.innerHTML='';
   if(!list.length){grid.innerHTML='<div class="empty"><span>Not Every Frame Is Public Yet</span></div>';return;}
   list.forEach((p,i)=>{
-    const id='c'+i+'_'+Math.random().toString(36).slice(2);
     const card=document.createElement('div');
     card.className='card';
-    const cnt=p._gallery?p.photos.length:p.count;
     card.onclick=()=>p._gallery?openGalleryModal(p):openModal(p);
-    card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}"><img class="card-color-half" src="${p.img}" alt="">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
+    const badge=`<div class="card-sport-badge">${sportSvg(p.sport)}</div>`;
+    const imgContent=p.img
+      ?`<img src="${p.img}" alt="${p.name}"><img class="card-color-half" src="${p.img}" alt="">${badge}`
+      :`<div class="card-coming"><div class="card-coming-icon">${sportSvg(p.sport,40)}</div><div class="card-coming-label">Coming Soon</div></div>${badge}`;
+    card.innerHTML=`<div class="card-img">${imgContent}</div><div class="card-info"><div class="card-name">${p.name}</div></div>`;
     grid.appendChild(card);
-    setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,cnt,20000);},i*150);
     if(p._gallery&&p.photos.length>1){
       setTimeout(()=>{
         let idx=0;
-        const imgs=card.querySelectorAll('.card-img img');
+        const allImgs=card.querySelectorAll('.card-img img');
         const sid=setInterval(()=>{
           idx=(idx+1)%p.photos.length;
-          imgs.forEach(img=>img.style.opacity='0');
+          allImgs.forEach(img=>img.style.opacity='0');
           setTimeout(()=>{
-            imgs[0].src=p.photos[idx].file;
-            imgs[1].src=p.photos[idx].file;
-            imgs.forEach(img=>img.style.opacity='1');
+            allImgs[0].src=p.photos[idx].file;
+            allImgs[1].src=p.photos[idx].file;
+            allImgs.forEach(img=>img.style.opacity='1');
           },400);
         },3000);
         activeSlides.push(sid);
