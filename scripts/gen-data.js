@@ -1,7 +1,6 @@
 #!/usr/bin/env node
-// NAS auto-sync script: scans image folders and rebuilds data.json gallery entries.
-// Run this on your UGreen NAS after photos are dropped into the watch folders.
-// Requires Node.js. Cron example: */5 * * * * node /path/to/repo/scripts/gen-data.js
+// Scans football image folders and updates the football gallery entries in data.json.
+// Basketball gallery is preserved unchanged. Run automatically by the Docker sync container.
 
 const fs = require('fs');
 const path = require('path');
@@ -9,21 +8,9 @@ const path = require('path');
 const REPO = path.resolve(__dirname, '..');
 const DATA_FILE = path.join(REPO, 'data.json');
 
-// Map each gallery name to its images folder (relative to repo root).
-// Update these paths to match your NAS folder structure once photos are synced.
-const GALLERY_FOLDERS = {
-  'HHS Football': {
-    folder: 'images/hhs-football',
-    cover: 'images/hhs-football/cover.jpg',
-    sport: 'football',
-    prefix: 'HHS'
-  },
-  'Ellis Football': {
-    folder: 'images/ellis-football',
-    cover: 'images/ellis-football/cover.jpg',
-    sport: 'football',
-    prefix: 'ELI'
-  }
+const FOOTBALL_GALLERIES = {
+  '2026 HHS Football': { folder: 'images/hhs-football', prefix: 'HHS26' },
+  '2026 Ellis Football': { folder: 'images/ellis-football', prefix: 'ELI26' }
 };
 
 const IMG_EXTS = new Set(['.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG']);
@@ -32,7 +19,7 @@ function scanPhotos(folderRel, prefix) {
   const folderAbs = path.join(REPO, folderRel);
   if (!fs.existsSync(folderAbs)) return [];
   return fs.readdirSync(folderAbs)
-    .filter(f => IMG_EXTS.has(path.extname(f)) && f !== 'cover.jpg' && f !== 'cover.jpeg')
+    .filter(f => IMG_EXTS.has(path.extname(f)))
     .sort()
     .map((f, i) => ({
       id: `${prefix}-${String(i + 1).padStart(3, '0')}`,
@@ -42,12 +29,17 @@ function scanPhotos(folderRel, prefix) {
 
 const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 
-data.galleries = Object.entries(GALLERY_FOLDERS).map(([name, cfg]) => ({
-  name,
-  sport: cfg.sport,
-  img: cfg.cover,
-  photos: scanPhotos(cfg.folder, cfg.prefix)
-}));
+// Update only football galleries; preserve basketball and any others
+data.galleries = data.galleries.map(g => {
+  const cfg = FOOTBALL_GALLERIES[g.name];
+  if (!cfg) return g;
+  const photos = scanPhotos(cfg.folder, cfg.prefix);
+  return {
+    ...g,
+    img: photos.length > 0 ? photos[0].file : g.img,
+    photos
+  };
+});
 
 fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
 console.log('data.json updated:');
