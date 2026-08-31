@@ -118,6 +118,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 @media(max-width:600px){.gm-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:400px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
 .gm-item{position:relative;overflow:hidden;cursor:pointer;}
+.gm-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38%;opacity:0.32;pointer-events:none;filter:drop-shadow(0 1px 6px rgba(0,0,0,0.5));}
 .gm-thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
 .gm-tag{position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:0.08em;padding:1px 5px;}
 .gm-sel{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:background 0.2s;}
@@ -548,7 +549,7 @@ function openGalleryModal(g){
     const item=document.createElement('div');
     item.className='gm-item';
     item.id='gmitem-'+photo.id;
-    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
     grid.appendChild(item);
   });
   setQ('gm-hq');
