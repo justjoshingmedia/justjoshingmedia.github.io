@@ -35,9 +35,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .grid { display:grid; grid-template-columns:repeat(8,1fr); gap:3px; }
 .card { background:var(--bg); cursor:pointer; overflow:hidden; }
 .card-img { width:100%; aspect-ratio:4/5; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
-.card-img img:not(.card-color-half) { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:transform 0.4s; }
+.card-img img:not(.card-color-half) { width:100%; height:100%; object-fit:cover; filter:grayscale(100%); transition:opacity 0.4s,transform 0.4s; }
 .card:hover .card-img img:not(.card-color-half) { transform:scale(1.03); }
-.card-color-half { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:none; clip-path:polygon(65% 0,100% 0,100% 100%,35% 100%); transition:transform 0.4s; }
+.card-color-half { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:none; clip-path:polygon(65% 0,100% 0,100% 100%,35% 100%); transition:opacity 0.4s,transform 0.4s; }
 .card:hover .card-color-half { transform:scale(1.03); }
 .card-init { font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:0.08em; color:#ccc; }
 .card-info { padding:4px 4px 6px; text-align:center; }
@@ -104,19 +104,27 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 @media(max-width:900px){.grid{grid-template-columns:repeat(6,1fr);}}
 @media(max-width:600px){.hdr-brand{font-size:17px;}.hdr-nav a{font-size:7px;padding:3px 5px;}.grid{grid-template-columns:repeat(4,1fr);}.fn-icon{width:34px;height:34px;}#float-nav{gap:14px;right:8px;}#float-nav button,#float-nav a{font-size:7px;}#wrap{padding-left:48px;padding-right:48px;padding-bottom:96px;}}
 @media(max-width:400px){.grid{grid-template-columns:repeat(3,1fr);}#wrap{padding-left:44px;padding-right:44px;}}
-.gm-body{padding:20px 12px 32px;max-width:960px;margin:0 auto;}
+.gm-body{padding:16px 8px 24px;max-width:960px;margin:0 auto;}
 .gm-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.18em;text-transform:uppercase;text-align:center;margin-bottom:4px;}
-.gm-sub{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:6px;}
-.gm-note{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#aaa;text-align:center;margin-bottom:20px;line-height:1.8;max-width:280px;margin-left:auto;margin-right:auto;}
-.gm-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;}
-@media(max-width:600px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
-.gm-item{position:relative;overflow:hidden;}
-.gm-thumb{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;}
-.gm-tag{position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.1em;padding:2px 6px;}
-.gm-pay{display:block;width:100%;background:#000;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.14em;padding:7px 0;text-align:center;border:none;cursor:pointer;transition:opacity 0.2s;}
-.gm-pay:hover{opacity:0.75;}
-.gm-dl{display:none;width:100%;background:#fff;color:#000;border:1px solid #ddd;border-top:none;font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:0.14em;padding:6px 0;text-align:center;text-decoration:none;}
-.gm-dl.visible{display:block;}
+.gm-sub{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px;}
+.gm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
+@media(max-width:600px){.gm-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:400px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
+.gm-item{position:relative;overflow:hidden;cursor:pointer;}
+.gm-thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.gm-tag{position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:0.08em;padding:1px 5px;}
+.gm-sel{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:background 0.2s;}
+.gm-item.selected .gm-sel{background:#000;color:#fff;}
+.gm-item.selected::after{content:'';position:absolute;inset:0;border:2px solid #000;pointer-events:none;}
+.gm-dl-overlay{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.72);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.12em;padding:5px 0;text-align:center;text-decoration:none;}
+.gm-item.paid .gm-dl-overlay{display:block;}
+.gm-cart-bar{flex-shrink:0;background:var(--bg);border-top:1px solid #eee;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.gm-cart-info{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);flex:1;}
+.gm-cart-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.gm-cart-total{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.1em;}
+.gm-cart-pay{display:none;align-items:center;gap:8px;background:#000;color:#fff;padding:10px 22px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:0.2em;border:none;cursor:pointer;transition:opacity 0.2s;}
+.gm-cart-pay.active{display:inline-flex;}
+.gm-cart-pay:hover{opacity:0.75;}
 </style>
 </head>
 <body>
@@ -351,8 +359,14 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="gm-body">
       <div class="gm-title" id="gm-title"></div>
       <div class="gm-sub" id="gm-sub"></div>
-      <div class="gm-note">Tap Pay on Venmo — the photo code goes in the note automatically. Download button appears right after.</div>
       <div class="gm-grid" id="gm-grid"></div>
+    </div>
+  </div>
+  <div class="gm-cart-bar">
+    <div class="gm-cart-info" id="gm-cart-info">Select photos · $1 each</div>
+    <div class="gm-cart-right">
+      <div class="gm-cart-total" id="gm-cart-total"></div>
+      <button class="gm-cart-pay" id="gm-cart-pay" onclick="payCart()"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>Pay on Venmo</button>
     </div>
   </div>
   <div class="modal-nav-bottom">
@@ -419,6 +433,7 @@ function floatNav(action){
   document.getElementById('am').classList.remove('open');
   document.getElementById('fym').classList.remove('open');
   document.getElementById('gm').classList.remove('open');
+  activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   document.body.style.overflow='';
   if(action==='about') openAbout();
   else if(action==='find') openFindYourself();
@@ -428,6 +443,7 @@ function goHome(){
   document.getElementById('am').classList.remove('open');
   document.getElementById('fym').classList.remove('open');
   document.getElementById('gm').classList.remove('open');
+  activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   document.body.style.overflow='';
   window.scrollTo({top:0,behavior:'smooth'});
   cf='all';
@@ -442,6 +458,9 @@ function filter(sport,el){
   render();
 }
 let activeFrames=[];
+let activeSlides=[];
+let gmCart=new Set();
+let currentGallery=null;
 function counter(el,target,dur){
   const t0=performance.now();
   function tick(now){
@@ -454,8 +473,8 @@ function counter(el,target,dur){
   activeFrames.push(requestAnimationFrame(tick));
 }
 function render(){
-  activeFrames.forEach(id=>cancelAnimationFrame(id));
-  activeFrames=[];
+  activeFrames.forEach(id=>cancelAnimationFrame(id));activeFrames=[];
+  activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   const grid=document.getElementById('grid');
   const glist=galleries.filter(g=>cf==='all'||g.sport===cf);
   const plist=people.filter(p=>cf==='all'||p.sport===cf);
@@ -471,6 +490,22 @@ function render(){
     card.innerHTML=`<div class="card-img">${p.img?`<img src="${p.img}" alt="${p.name}"><img class="card-color-half" src="${p.img}" alt="">`:`<div class="card-init">${inits(p.name)}</div>`}</div><div class="card-info"><div class="card-name">${p.name}</div><div class="card-count" id="${id}">0 photos</div></div>`;
     grid.appendChild(card);
     setTimeout(()=>{const e=document.getElementById(id);if(e)counter(e,cnt,20000);},i*150);
+    if(p._gallery&&p.photos.length>1){
+      setTimeout(()=>{
+        let idx=0;
+        const imgs=card.querySelectorAll('.card-img img');
+        const sid=setInterval(()=>{
+          idx=(idx+1)%p.photos.length;
+          imgs.forEach(img=>img.style.opacity='0');
+          setTimeout(()=>{
+            imgs[0].src=p.photos[idx].file;
+            imgs[1].src=p.photos[idx].file;
+            imgs.forEach(img=>img.style.opacity='1');
+          },400);
+        },3000);
+        activeSlides.push(sid);
+      },i*150+1200);
+    }
   });
 }
 function openModal(p){
@@ -498,17 +533,44 @@ function openFindYourself(){
   document.getElementById('fym').classList.add('open');
   document.body.style.overflow='hidden';
 }
+function toggleCart(id,btn){
+  const item=document.getElementById('gmitem-'+id);
+  if(gmCart.has(id)){gmCart.delete(id);item.classList.remove('selected');btn.textContent='♡';}
+  else{gmCart.add(id);item.classList.add('selected');btn.textContent='♥';}
+  const n=gmCart.size;
+  document.getElementById('gm-cart-info').textContent=n===0?'Select photos · $1 each':n+' photo'+(n>1?'s':'')+' selected';
+  document.getElementById('gm-cart-total').textContent=n>0?'$'+n:'';
+  const pay=document.getElementById('gm-cart-pay');
+  if(n>0)pay.classList.add('active');else pay.classList.remove('active');
+}
+function payCart(){
+  if(gmCart.size===0)return;
+  const ids=[...gmCart].join(', ');
+  const note=encodeURIComponent((currentGallery?currentGallery.name:'Football')+' — '+ids+' — Just Joshing Media');
+  window.open('https://venmo.com/'+VENMO+'?txn=pay&amount='+gmCart.size+'&note='+note,'_blank');
+  gmCart.forEach(id=>{const el=document.getElementById('gmitem-'+id);if(el)el.classList.add('paid');});
+  const pay=document.getElementById('gm-cart-pay');
+  pay.innerHTML='Sent ✓';pay.style.opacity='0.45';pay.onclick=null;pay.classList.remove('active');
+  document.getElementById('gm-cart-info').textContent='Download your photos below ↓';
+  document.getElementById('gm-cart-total').textContent='';
+}
 function openGalleryModal(g){
+  currentGallery=g;
+  gmCart=new Set();
   document.getElementById('gm-title').textContent=g.name;
   document.getElementById('gm-sub').textContent=g.photos.length+' photos · $1 each';
+  document.getElementById('gm-cart-info').textContent='Select photos · $1 each';
+  document.getElementById('gm-cart-total').textContent='';
+  const pay=document.getElementById('gm-cart-pay');
+  pay.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>Pay on Venmo';
+  pay.style.opacity='';pay.onclick=payCart;pay.classList.remove('active');
   const grid=document.getElementById('gm-grid');
   grid.innerHTML='';
   g.photos.forEach(photo=>{
     const item=document.createElement('div');
     item.className='gm-item';
-    const note=encodeURIComponent(g.name+' — '+photo.id+' — Just Joshing Media');
-    const venmoUrl='https://venmo.com/'+VENMO+'?txn=pay&amount=1&note='+note;
-    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><div class="gm-tag">$1</div><button class="gm-pay" onclick="this.textContent='Sent ✓';this.style.opacity='0.4';this.nextElementSibling.classList.add('visible');window.open('${venmoUrl}','_blank')">Pay on Venmo</button><a class="gm-dl" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
+    item.id='gmitem-'+photo.id;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
     grid.appendChild(item);
   });
   setQ('gm-hq');
