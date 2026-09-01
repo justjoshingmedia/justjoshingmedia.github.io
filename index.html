@@ -733,7 +733,7 @@ function showSubGallery(sg){
   renderGmPhotos(sg.photos,0);updateCartBar();
 }
 let gmPage=0;
-const GM_PAGE_SIZE=50;
+const GM_PAGE_SIZE=24;
 function renderGmPhotos(photos,startIndex){
   const grid=document.getElementById('gm-grid');
   const slice=photos.slice(startIndex,startIndex+GM_PAGE_SIZE);
