@@ -140,7 +140,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .gm-viewer-counter{color:rgba(255,255,255,0.65);font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.1em;}
 .gm-viewer-close{color:#fff;background:none;border:none;font-size:26px;cursor:pointer;line-height:1;padding:4px 8px;opacity:0.8;}
 .gm-viewer-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
-.gm-viewer-img{max-width:100%;max-height:100%;object-fit:contain;display:block;user-select:none;}
+.gm-viewer-img-box{position:relative;display:inline-flex;max-width:100%;max-height:100%;}
+.gm-viewer-img{max-width:100%;max-height:100%;object-fit:contain;display:block;-webkit-user-drag:none;user-select:none;}
+.gm-viewer-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:85%;opacity:0.33;pointer-events:none;-webkit-user-drag:none;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.55));}
 .gm-viewer-bottom{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;flex-shrink:0;gap:10px;}
 .gm-viewer-nav{background:rgba(255,255,255,0.12);color:#fff;border:none;font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .gm-viewer-heart{font-size:36px;background:none;border:none;cursor:pointer;color:#fff;padding:6px;flex:1;text-align:center;}
@@ -148,6 +150,15 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .gm-viewer-dl{display:none;background:#fff;color:#000;border:none;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:0.15em;padding:12px 18px;cursor:pointer;flex-shrink:0;}
 .gm-viewer-dl.show{display:block;}
 .gm-thumb{cursor:pointer;}
+.gm-save-sheet{display:none;position:absolute;inset:0;background:var(--bg);z-index:300;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.gm-save-sheet.open{display:flex;}
+.gm-save-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #eee;flex-shrink:0;}
+.gm-save-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:0.15em;}
+.gm-save-note{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.08em;color:var(--muted);text-align:center;padding:14px 20px 10px;flex-shrink:0;line-height:1.6;}
+.gm-save-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:3px;padding:3px;}
+@media(min-width:600px){.gm-save-grid{grid-template-columns:repeat(3,1fr);}}
+.gm-save-item{position:relative;aspect-ratio:1/1;overflow:hidden;background:#111;}
+.gm-save-item img{width:100%;height:100%;object-fit:cover;display:block;}
 .gm-back{display:none;background:none;border:none;color:var(--muted);font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;padding:0 0 14px;text-align:left;}
 .gm-back.show{display:block;}
 .gm-folder{cursor:pointer;overflow:hidden;background:#f5f5f5;}
@@ -400,14 +411,25 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <button class="gm-viewer-close" onclick="closeViewer()">✕</button>
     </div>
     <div class="gm-viewer-wrap" id="gm-viewer-wrap">
-      <img class="gm-viewer-img" id="gm-viewer-img" src="" alt="">
+      <div class="gm-viewer-img-box">
+        <img class="gm-viewer-img" id="gm-viewer-img" src="" alt="">
+        <img class="gm-viewer-wm" src="Logo_png.PNG" alt="" draggable="false">
+      </div>
     </div>
     <div class="gm-viewer-bottom">
       <button class="gm-viewer-nav" onclick="navViewer(-1)">‹</button>
       <button class="gm-viewer-heart" id="gm-viewer-heart" onclick="toggleViewerCart()">♡</button>
-      <button class="gm-viewer-dl" id="gm-viewer-dl" onclick="dlViewerPhoto()">↓ Download</button>
+      <button class="gm-viewer-dl" id="gm-viewer-dl" onclick="dlViewerPhoto()">↓ Save Photo</button>
       <button class="gm-viewer-nav" onclick="navViewer(1)">›</button>
     </div>
+  </div>
+  <div class="gm-save-sheet" id="gm-save-sheet">
+    <div class="gm-save-hdr">
+      <span class="gm-save-title">Your Photos</span>
+      <button class="gm-viewer-close" onclick="closeSaveSheet()">✕</button>
+    </div>
+    <div class="gm-save-note">Tap and hold each photo → Save to Photos (iPhone) or Save Image (Android)</div>
+    <div class="gm-save-grid" id="gm-save-grid"></div>
   </div>
   <div class="gm-cart-bar">
     <div class="gm-cart-info" id="gm-cart-info">Select photos · $1 each</div>
@@ -578,7 +600,7 @@ function updateCartBar(){
   }else if(hasPaid){
     info.textContent='Downloads unlocked · Select more photos';
     tot.textContent='';
-    pay.innerHTML='↓ Download All ('+gmAllPaidIds.size+')';
+    pay.innerHTML='↓ Save All Photos ('+gmAllPaidIds.size+')';
     pay.style.cssText='';
     pay.classList.add('active');
     pay.onclick=downloadAll;
@@ -624,46 +646,25 @@ function downloadAll(){
   if(ids.length===0)return;
   const photos=ids.map(id=>currentGallery.photos.find(p=>p.id===id)).filter(Boolean);
   if(photos.length===0)return;
-  const pay=document.getElementById('gm-cart-pay');
-  pay.onclick=null;
-  if(typeof JSZip==='undefined'){
-    photos.forEach((ph,i)=>setTimeout(()=>dlPhoto(ph.file,ph.id),i*900));
-    pay.onclick=downloadAll;
-    return;
-  }
-  pay.innerHTML='⏳ 0 / '+photos.length+' loaded...';
-  const zip=new JSZip();
-  let loaded=0;
-  const promises=photos.map(ph=>
-    fetch(ph.file).then(r=>r.blob()).then(blob=>{
-      zip.file(ph.id+'.jpg',blob);
-      loaded++;
-      pay.innerHTML='⏳ '+loaded+' / '+photos.length+' loaded...';
-    }).catch(()=>null)
-  );
-  Promise.all(promises).then(()=>{
-    pay.innerHTML='⏳ Creating zip...';
-    return zip.generateAsync({type:'blob',compression:'STORE'});
-  }).then(blob=>{
-    const name=((currentSubGallery||currentGallery||{}).name||'photos').replace(/\s+/g,'-')+'.zip';
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download=name;
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(()=>URL.revokeObjectURL(a.href),60000);
-    pay.innerHTML='↓ Download All ('+ids.length+')';pay.onclick=downloadAll;
-  }).catch(()=>{
-    pay.innerHTML='↓ Download All ('+ids.length+')';pay.onclick=downloadAll;
-  });
+  showSaveSheet(photos);
 }
-function dlPhoto(url,id){
-  fetch(url).then(r=>r.blob()).then(blob=>{
-    const a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);
-    a.download=id+'.jpg';
-    document.body.appendChild(a);a.click();document.body.removeChild(a);
-    setTimeout(()=>URL.revokeObjectURL(a.href),30000);
-  }).catch(()=>window.open(url,'_blank'));
+function showSaveSheet(photos){
+  const grid=document.getElementById('gm-save-grid');
+  grid.innerHTML='';
+  photos.forEach(ph=>{
+    const item=document.createElement('div');
+    item.className='gm-save-item';
+    const img=document.createElement('img');
+    img.src=ph.file;img.loading='lazy';img.alt=ph.id;
+    item.appendChild(img);
+    grid.appendChild(item);
+  });
+  document.getElementById('gm-save-sheet').classList.add('open');
+}
+function closeSaveSheet(){document.getElementById('gm-save-sheet').classList.remove('open');}
+function dlViewerPhoto(){
+  const ph=viewerPhotos[gmViewerIdx];
+  if(ph)window.open(ph.file,'_blank');
 }
 /* ─── Photo viewer ─── */
 let gmViewerIdx=0,viewerPhotos=[];
@@ -700,7 +701,6 @@ function toggleViewerCart(){
   }
   updateCartBar();refreshViewer();
 }
-function dlViewerPhoto(){const ph=viewerPhotos[gmViewerIdx];if(ph)dlPhoto(ph.file,ph.id);}
 /* ─── Folder navigation ─── */
 let currentSubGallery=null;
 function showFolders(){
@@ -741,7 +741,7 @@ function renderGmPhotos(photos,startIndex){
     const item=document.createElement('div');
     item.className='gm-item';
     item.id='gmitem-'+photo.id;
-    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}" loading="lazy" onclick="openViewer('${photo.id}')"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><button class="gm-dl-overlay" onclick="dlPhoto('${photo.file}','${photo.id}')">↓ Download</button>`;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}" loading="lazy" onclick="openViewer('${photo.id}')"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" target="_blank" rel="noopener">↓ Save Photo</a>`;
     grid.appendChild(item);
   });
   const existing=document.getElementById('gm-load-more');
