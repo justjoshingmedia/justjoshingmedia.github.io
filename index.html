@@ -121,12 +121,13 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 @media(max-width:400px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
 .gm-item{position:relative;overflow:hidden;cursor:pointer;}
 .gm-watermark{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;opacity:0.32;pointer-events:none;filter:drop-shadow(0 1px 6px rgba(0,0,0,0.5));}
-.gm-thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.gm-thumb{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;-webkit-touch-callout:none;user-select:none;}
+.gm-item-shield{position:absolute;inset:0;z-index:4;-webkit-touch-callout:none;user-select:none;}
 .gm-tag{position:absolute;top:4px;left:4px;background:rgba(0,0,0,0.65);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:10px;letter-spacing:0.08em;padding:1px 5px;}
-.gm-sel{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:background 0.2s;}
+.gm-sel{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:background 0.2s;z-index:6;}
 .gm-item.selected .gm-sel{background:#000;color:#fff;}
-.gm-item.selected::after{content:'';position:absolute;inset:0;border:2px solid #000;pointer-events:none;}
-.gm-dl-overlay{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.72);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.12em;padding:5px 0;text-align:center;text-decoration:none;border:none;cursor:pointer;width:100%;}
+.gm-item.selected::after{content:'';position:absolute;inset:0;border:2px solid #000;pointer-events:none;z-index:7;}
+.gm-dl-overlay{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.72);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.12em;padding:5px 0;text-align:center;text-decoration:none;border:none;cursor:pointer;width:100%;z-index:6;}
 .gm-item.paid .gm-dl-overlay{display:block;}
 .gm-cart-bar{flex-shrink:0;background:var(--bg);border-top:1px solid #eee;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .gm-cart-info{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);flex:1;}
@@ -749,7 +750,7 @@ function renderGmPhotos(photos,startIndex){
     const item=document.createElement('div');
     item.className='gm-item';
     item.id='gmitem-'+photo.id;
-    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}" loading="lazy" onclick="openViewer('${photo.id}')"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" target="_blank" rel="noopener">↓ Save Photo</a>`;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}" loading="lazy"><img class="gm-watermark" src="Logo_png.PNG" alt="" draggable="false"><div class="gm-item-shield" oncontextmenu="return false" onclick="openViewer('${photo.id}')"></div><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" target="_blank" rel="noopener">↓ Save Photo</a>`;
     grid.appendChild(item);
   });
   const existing=document.getElementById('gm-load-more');
