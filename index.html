@@ -797,19 +797,24 @@ window.addEventListener('popstate',()=>{
   activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   document.body.style.overflow='';
 });
-/* Viewer swipe — strictly single-finger only; pinch never navigates */
+/* Viewer swipe — single-finger only; disabled when viewport is zoomed in */
 (()=>{
-  let tx=0,maxT=0;
+  let tx=0,ty=0,maxT=0;
   const vOpen=()=>document.getElementById('gm-viewer').classList.contains('open');
+  const zoomed=()=>window.visualViewport&&window.visualViewport.scale>1.05;
   document.addEventListener('touchstart',e=>{
     if(!vOpen())return;
     maxT=Math.max(maxT,e.touches.length);
-    if(e.touches.length===1&&maxT===1)tx=e.touches[0].clientX;
+    if(e.touches.length===1&&maxT===1){tx=e.touches[0].clientX;ty=e.touches[0].clientY;}
   },{passive:true});
   document.addEventListener('touchend',e=>{
     if(!vOpen())return;
     if(e.touches.length===0){
-      if(maxT===1){const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)navViewer(dx<0?1:-1);}
+      if(maxT===1&&!zoomed()){
+        const dx=e.changedTouches[0].clientX-tx;
+        const dy=e.changedTouches[0].clientY-ty;
+        if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)navViewer(dx<0?1:-1);
+      }
       maxT=0;
     }
   },{passive:true});
