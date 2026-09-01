@@ -113,7 +113,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 @media(max-width:400px){.grid{grid-template-columns:repeat(3,1fr);}#wrap{padding-left:44px;padding-right:44px;}}
 .gm-body{padding:16px 8px 24px;max-width:960px;margin:0 auto;}
 .gm-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:0.18em;text-transform:uppercase;text-align:center;margin-bottom:4px;}
-.gm-sub{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:14px;}
+.gm-sub{font-family:'Montserrat',sans-serif;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px;}
+.gm-edit-note{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.07em;color:#aaa;text-align:center;line-height:1.9;margin-bottom:16px;padding:0 16px;}
+.gm-edit-note a{color:#888;text-decoration:underline;text-underline-offset:2px;}
 .gm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;}
 @media(max-width:600px){.gm-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:400px){.gm-grid{grid-template-columns:repeat(2,1fr);}}
@@ -257,6 +259,9 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
         <div class="m-line">Send payment via Venmo with your name in the note.</div>
         <div class="m-spacer"></div>
         <div class="m-line">Your gallery link will be delivered within 24 hours.</div>
+      </div>
+      <div class="m-block" style="margin-top:4px;">
+        <div class="m-line" style="color:#bbb;font-size:10px;">Photos are unedited — crop, filter, or adjust freely.<br>Need edits done for you? <a href="mailto:justjoshing615@gmail.com?subject=Photo%20Editing%20Request" style="color:#999;text-decoration:underline;text-underline-offset:2px;">Email us</a> — $10 minimum, $2/photo after.</div>
       </div>
       <a class="venmo" id="pm-venmo" target="_blank">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>
@@ -403,6 +408,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <button class="gm-back" id="gm-back" onclick="showFolders()">← All Games</button>
       <div class="gm-title" id="gm-title"></div>
       <div class="gm-sub" id="gm-sub"></div>
+      <div class="gm-edit-note">Most photos are unedited — feel free to crop, filter, or adjust to your liking.<br>Want them professionally edited? <a href="mailto:justjoshing615@gmail.com?subject=Photo%20Editing%20Request">Email us</a> — $10 minimum, or $2 per photo after that.</div>
       <div class="gm-grid" id="gm-grid"></div>
     </div>
   </div>
