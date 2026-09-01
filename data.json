@@ -23,33 +23,6 @@
   ],
   "galleries": [
     {
-      "name": "HHS Basketball 2025",
-      "sport": "basketball",
-      "img": "Ayden%20Meadows.jpg",
-      "photos": [
-        {"id":"BB25-Ayden-Meadows","file":"Ayden%20Meadows.jpg"},
-        {"id":"BB25-Weston-Hall","file":"Weston%20Hall.jpg"},
-        {"id":"BB25-Houston-Bogle","file":"Houston%20Bogle.jpg"},
-        {"id":"BB25-Simon","file":"Simon.jpg"},
-        {"id":"BB25-Mont","file":"Mont.jpg"},
-        {"id":"BB25-Aiden-Bush","file":"Aiden%20Bush.jpg"},
-        {"id":"BB25-Ford-Procter","file":"Ford%20Procter.jpg"},
-        {"id":"BB25-Chris-Jordan","file":"Chris%20Jordan.jpg"},
-        {"id":"BB25-Dallas-Hodges","file":"Dallas%20Hodges.jpg"},
-        {"id":"BB25-Michael-Muyskens","file":"Michael%20Muyskens.jpg"},
-        {"id":"BB25-Lincoln-Elrod","file":"Lincoln%20Elrod.jpg"},
-        {"id":"BB25-Garrett-Rippy","file":"Garrett%20Rippey.jpg"},
-        {"id":"BB25-AJ-Sawyers","file":"AJ%20Sawyers.jpg"},
-        {"id":"BB25-Deshon-Sawyers","file":"Deshon%20Sawyers.jpg"},
-        {"id":"BB25-Jasihir-Jones","file":"Jasihir%20Jones.jpg"},
-        {"id":"BB25-Coach-Hall","file":"Coach%20Hall.jpg"},
-        {"id":"BB25-Karon-Wilson","file":"Karon%20Wilson.jpg"},
-        {"id":"BB25-Reggie-Brown","file":"Reggie%20Brown.jpg"},
-        {"id":"BB25-Nemo","file":"Nemo.jpg"},
-        {"id":"BB25-Marco","file":"Marco.jpg"}
-      ]
-    },
-    {
       "name": "2026 HHS Football",
       "sport": "football",
       "img": "images/IMG_9243.jpeg",
@@ -70,18 +43,6 @@
         {"id":"ELI26-002","file":"images/IMG_9238.jpeg"},
         {"id":"ELI26-003","file":"images/IMG_9239.jpeg"}
       ]
-    },
-    {
-      "name": "2025 HHS Football",
-      "sport": "football",
-      "img": "",
-      "photos": []
-    },
-    {
-      "name": "2025 Ellis Football",
-      "sport": "football",
-      "img": "",
-      "photos": []
     }
   ]
 }
