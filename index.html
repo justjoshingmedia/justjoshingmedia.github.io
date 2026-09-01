@@ -641,11 +641,53 @@ function confirmPayment(){
   gmPendingIds=[];
   updateCartBar();
 }
-function downloadAll(){
+async function downloadAll(){
   const ids=[...gmAllPaidIds];
   if(ids.length===0)return;
   const photos=ids.map(id=>currentGallery.photos.find(p=>p.id===id)).filter(Boolean);
   if(photos.length===0)return;
+  const pay=document.getElementById('gm-cart-pay');
+  pay.onclick=null;
+  pay.innerHTML='⏳ Loading 0 / '+photos.length+'...';
+  // Try fetch (works if CORS is configured on NAS nginx)
+  let blobs=null;
+  try{
+    blobs=[];
+    for(let i=0;i<photos.length;i++){
+      pay.innerHTML='⏳ '+(i+1)+' / '+photos.length+'...';
+      const r=await fetch(photos[i].file);
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      const b=await r.blob();
+      if(b.size===0)throw new Error('empty');
+      blobs.push(b);
+    }
+  }catch(e){blobs=null;}
+  pay.innerHTML='↓ Save All Photos ('+ids.length+')';
+  pay.onclick=downloadAll;
+  if(blobs){
+    // Try Web Share API — opens iOS native share sheet → "Add to Photos" (one tap!)
+    const files=blobs.map((b,i)=>new File([b],photos[i].id+'.jpg',{type:b.type||'image/jpeg'}));
+    if(typeof navigator.share==='function'&&navigator.canShare&&navigator.canShare({files})){
+      try{
+        await navigator.share({files,title:(currentGallery?currentGallery.name:'Photos')+' — Just Joshing Media'});
+        return;
+      }catch(e){if(e.name==='AbortError')return;}
+    }
+    // Web Share not supported (desktop) — zip download
+    if(typeof JSZip!=='undefined'){
+      pay.innerHTML='⏳ Creating zip...';
+      const zip=new JSZip();
+      blobs.forEach((b,i)=>zip.file(photos[i].id+'.jpg',b));
+      const zb=await zip.generateAsync({type:'blob',compression:'STORE'});
+      const name=((currentSubGallery||currentGallery||{}).name||'photos').replace(/\s+/g,'-')+'.zip';
+      const a=document.createElement('a');a.href=URL.createObjectURL(zb);a.download=name;
+      document.body.appendChild(a);a.click();document.body.removeChild(a);
+      setTimeout(()=>URL.revokeObjectURL(a.href),60000);
+      pay.innerHTML='↓ Save All Photos ('+ids.length+')';pay.onclick=downloadAll;
+      return;
+    }
+  }
+  // CORS not yet configured — show save sheet as fallback
   showSaveSheet(photos);
 }
 function showSaveSheet(photos){
