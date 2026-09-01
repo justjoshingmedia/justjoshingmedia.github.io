@@ -124,7 +124,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .gm-sel{position:absolute;top:5px;right:5px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.85);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;transition:background 0.2s;}
 .gm-item.selected .gm-sel{background:#000;color:#fff;}
 .gm-item.selected::after{content:'';position:absolute;inset:0;border:2px solid #000;pointer-events:none;}
-.gm-dl-overlay{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.72);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.12em;padding:5px 0;text-align:center;text-decoration:none;}
+.gm-dl-overlay{display:none;position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,0.72);color:#fff;font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:0.12em;padding:5px 0;text-align:center;text-decoration:none;border:none;cursor:pointer;width:100%;}
 .gm-item.paid .gm-dl-overlay{display:block;}
 .gm-cart-bar{flex-shrink:0;background:var(--bg);border-top:1px solid #eee;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
 .gm-cart-info{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:0.09em;text-transform:uppercase;color:var(--muted);flex:1;}
@@ -536,6 +536,15 @@ function payCart(){
   document.getElementById('gm-cart-info').textContent='Download your photos below ↓';
   document.getElementById('gm-cart-total').textContent='';
 }
+function dlPhoto(url,id){
+  fetch(url).then(r=>r.blob()).then(blob=>{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);
+    a.download=id+'.jpg';
+    a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href),10000);
+  }).catch(()=>window.open(url,'_blank'));
+}
 function openGalleryModal(g){
   currentGallery=g;
   gmCart=new Set();
@@ -552,7 +561,7 @@ function openGalleryModal(g){
     const item=document.createElement('div');
     item.className='gm-item';
     item.id='gmitem-'+photo.id;
-    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><a class="gm-dl-overlay" href="${photo.file}" download="${photo.id}.jpg">↓ Download</a>`;
+    item.innerHTML=`<img class="gm-thumb" src="${photo.file}" alt="${photo.id}"><img class="gm-watermark" src="Logo_png.PNG" alt=""><div class="gm-tag">$1</div><button class="gm-sel" onclick="toggleCart('${photo.id}',this)">♡</button><button class="gm-dl-overlay" onclick="dlPhoto('${photo.file}','${photo.id}')">↓ Download</button>`;
     grid.appendChild(item);
   });
   setQ('gm-hq');

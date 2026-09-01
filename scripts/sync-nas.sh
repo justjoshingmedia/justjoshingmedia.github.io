@@ -58,7 +58,7 @@ sync_folder "$HHS_SRC"   "$HHS_DEST"   "HHS Football"  || changed=1
 if [ "$changed" -eq 1 ]; then
   echo "$LOG_PREFIX Rebuilding data.json..."
   node "$REPO/scripts/gen-data.js"
-  git add images/ data.json
+  git add data.json
   git commit -m "Auto-sync: new football photos from NAS ($(date '+%Y-%m-%d'))"
   git push origin main
   echo "$LOG_PREFIX Done — site will update in ~1 minute."

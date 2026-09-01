@@ -34,7 +34,7 @@ while true; do
   node "$REPO/scripts/gen-data.js"
 
   # Commit and push only if something changed
-  git -C "$REPO" add images/ data.json
+  git -C "$REPO" add data.json
   if ! git -C "$REPO" diff --cached --quiet; then
     git -C "$REPO" commit -m "Auto-sync: new photos from NAS ($(date +%Y-%m-%d))"
     git -C "$REPO" push origin main
