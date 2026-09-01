@@ -374,7 +374,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
     <div class="gm-cart-info" id="gm-cart-info">Select photos · $1 each</div>
     <div class="gm-cart-right">
       <div class="gm-cart-total" id="gm-cart-total"></div>
-      <button class="gm-cart-pay" id="gm-cart-pay" onclick="payCart()"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>Pay on Venmo</button>
+      <button class="gm-cart-pay" id="gm-cart-pay"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>Pay on Venmo</button>
     </div>
   </div>
   <div class="modal-nav-bottom">
@@ -432,6 +432,8 @@ function filter(sport,el){
 let activeFrames=[];
 let activeSlides=[];
 let gmCart=new Set();
+let gmPendingIds=[];
+let gmAllPaidIds=new Set();
 let currentGallery=null;
 function counter(el,target,dur){
   const t0=performance.now();
@@ -515,28 +517,74 @@ function openFindYourself(){
   document.body.style.overflow='hidden';
   history.pushState({modal:'fym'},'','');
 }
+const VENMO_SVG='<svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>';
+function updateCartBar(){
+  const n=gmCart.size,hasPending=gmPendingIds.length>0,hasPaid=gmAllPaidIds.size>0;
+  const info=document.getElementById('gm-cart-info'),tot=document.getElementById('gm-cart-total'),pay=document.getElementById('gm-cart-pay');
+  if(hasPending){
+    info.textContent='Sent payment on Venmo? Tap to unlock your downloads →';
+    tot.textContent='';
+    pay.innerHTML='✓ I\'ve sent payment';
+    pay.style.cssText='background:#1a7f37;';
+    pay.classList.add('active');
+    pay.onclick=confirmPayment;
+  }else if(n>0){
+    info.textContent=n+' photo'+(n>1?'s':'')+' selected · $'+n;
+    tot.textContent='$'+n;
+    pay.innerHTML=VENMO_SVG+'Pay on Venmo';
+    pay.style.cssText='';
+    pay.classList.add('active');
+    pay.onclick=payCart;
+  }else if(hasPaid){
+    info.textContent='Downloads unlocked · Select more photos';
+    tot.textContent='';
+    pay.innerHTML='↓ Download All ('+gmAllPaidIds.size+')';
+    pay.style.cssText='';
+    pay.classList.add('active');
+    pay.onclick=downloadAll;
+  }else{
+    info.textContent='Select photos · $1 each';
+    tot.textContent='';
+    pay.innerHTML=VENMO_SVG+'Pay on Venmo';
+    pay.style.cssText='';
+    pay.classList.remove('active');
+    pay.onclick=payCart;
+  }
+}
 function toggleCart(id,btn){
   const item=document.getElementById('gmitem-'+id);
   if(gmCart.has(id)){gmCart.delete(id);item.classList.remove('selected');btn.textContent='♡';}
   else{gmCart.add(id);item.classList.add('selected');btn.textContent='♥';}
-  const n=gmCart.size;
-  document.getElementById('gm-cart-info').textContent=n===0?'Select photos · $1 each':n+' photo'+(n>1?'s':'')+' selected';
-  document.getElementById('gm-cart-total').textContent=n>0?'$'+n:'';
-  const pay=document.getElementById('gm-cart-pay');
-  if(n>0)pay.classList.add('active');else pay.classList.remove('active');
+  updateCartBar();
 }
 function payCart(e){
   if(gmCart.size===0)return;
-  const ids=[...gmCart].join(', ');
-  if(!e?.shiftKey){
-    const note=encodeURIComponent((currentGallery?currentGallery.name:'Football')+' — '+ids+' — Just Joshing Media');
-    window.open('https://venmo.com/'+VENMO+'?txn=pay&amount='+gmCart.size+'&note='+note,'_blank');
+  const ids=[...gmCart];
+  if(e?.shiftKey){
+    ids.forEach(id=>{gmAllPaidIds.add(id);const el=document.getElementById('gmitem-'+id);if(el){el.classList.add('paid');el.classList.remove('selected');}});
+    gmCart=new Set();
+    updateCartBar();
+    return;
   }
-  gmCart.forEach(id=>{const el=document.getElementById('gmitem-'+id);if(el)el.classList.add('paid');});
-  const pay=document.getElementById('gm-cart-pay');
-  pay.innerHTML='Sent ✓';pay.style.opacity='0.45';pay.onclick=null;pay.classList.remove('active');
-  document.getElementById('gm-cart-info').textContent='Download your photos below ↓';
-  document.getElementById('gm-cart-total').textContent='';
+  const note=encodeURIComponent((currentGallery?currentGallery.name:'Football')+' — '+ids.join(', ')+' — Just Joshing Media');
+  window.open('https://venmo.com/'+VENMO+'?txn=pay&amount='+ids.length+'&note='+note,'_blank');
+  gmPendingIds=ids;
+  ids.forEach(id=>{const el=document.getElementById('gmitem-'+id);if(el)el.classList.remove('selected');});
+  gmCart=new Set();
+  updateCartBar();
+}
+function confirmPayment(){
+  if(gmPendingIds.length===0)return;
+  gmPendingIds.forEach(id=>{gmAllPaidIds.add(id);const el=document.getElementById('gmitem-'+id);if(el)el.classList.add('paid');});
+  gmPendingIds=[];
+  updateCartBar();
+}
+function downloadAll(){
+  const ids=[...gmAllPaidIds];
+  ids.forEach((id,i)=>{
+    const photo=currentGallery.photos.find(p=>p.id===id);
+    if(photo)setTimeout(()=>dlPhoto(photo.file,photo.id),i*800);
+  });
 }
 function dlPhoto(url,id){
   fetch(url).then(r=>r.blob()).then(blob=>{
@@ -574,13 +622,13 @@ function openGalleryModal(g){
   currentGallery=g;
   gmPage=0;
   gmCart=new Set();
+  gmPendingIds=[];
+  gmAllPaidIds=new Set();
   document.getElementById('gm-title').textContent=g.name;
   document.getElementById('gm-sub').textContent=g.photos.length+' photos · $1 each';
-  document.getElementById('gm-cart-info').textContent='Select photos · $1 each';
-  document.getElementById('gm-cart-total').textContent='';
   const pay=document.getElementById('gm-cart-pay');
-  pay.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M19.4 2C20.2 3.4 20.6 4.8 20.6 6.6c0 5.2-4.4 11.9-8 16.6H4.4L1 3.4l7-.7.9 7.3c.8-1.4 1.8-3.6 1.8-5.1 0-.9-.2-1.5-.4-2.1L19.4 2z"/></svg>Pay on Venmo';
-  pay.style.opacity='';pay.onclick=e=>payCart(e);pay.classList.remove('active');
+  pay.style.cssText='';pay.classList.remove('active');
+  updateCartBar();
   const grid=document.getElementById('gm-grid');
   grid.innerHTML='';
   renderGmPhotos(g.photos,0);

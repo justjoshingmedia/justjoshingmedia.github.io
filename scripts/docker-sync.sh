@@ -19,8 +19,14 @@ while true; do
   git -C "$REPO" fetch origin main --quiet
   git -C "$REPO" reset --hard origin/main --quiet
 
-  # Copy all photos from HHS folder tree, skipping Video subfolders
-  find /photos/hhs -not -path '*/Video/*' -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | while read f; do
+  # Remove any photos previously copied from Media Day subfolders
+  find /photos/hhs -ipath '*Media*Day*' -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | while read f; do
+    dest="$HHS_IMG/$(basename "$f")"
+    [ -f "$dest" ] && rm -f "$dest" && echo "[sync] Removed Media Day photo: $(basename "$f")"
+  done
+
+  # Copy all photos from HHS folder tree, skipping Video and Media Day subfolders
+  find /photos/hhs -not -path '*/Video/*' -not -ipath '*Media*Day*' -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | while read f; do
     dest="$HHS_IMG/$(basename "$f")"
     [ -f "$dest" ] || cp "$f" "$dest"
   done
