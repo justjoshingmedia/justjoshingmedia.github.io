@@ -141,7 +141,8 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
 .gm-viewer-close{color:#fff;background:none;border:none;font-size:26px;cursor:pointer;line-height:1;padding:4px 8px;opacity:0.8;}
 .gm-viewer-wrap{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;}
 .gm-viewer-img-box{position:relative;display:inline-flex;max-width:100%;max-height:100%;}
-.gm-viewer-img{max-width:100%;max-height:100%;object-fit:contain;display:block;-webkit-user-drag:none;user-select:none;}
+.gm-viewer-img{max-width:100%;max-height:100%;object-fit:contain;display:block;-webkit-user-drag:none;user-select:none;-webkit-touch-callout:none;}
+.gm-viewer-shield{position:absolute;inset:0;z-index:10;-webkit-touch-callout:none;user-select:none;}
 .gm-viewer-wm{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:85%;opacity:0.33;pointer-events:none;-webkit-user-drag:none;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.55));}
 .gm-viewer-bottom{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;flex-shrink:0;gap:10px;}
 .gm-viewer-nav{background:rgba(255,255,255,0.12);color:#fff;border:none;font-size:28px;width:48px;height:48px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -414,6 +415,7 @@ body { background:var(--bg); color:var(--text); font-family:'Bebas Neue',sans-se
       <div class="gm-viewer-img-box">
         <img class="gm-viewer-img" id="gm-viewer-img" src="" alt="">
         <img class="gm-viewer-wm" src="Logo_png.PNG" alt="" draggable="false">
+        <div class="gm-viewer-shield" oncontextmenu="return false"></div>
       </div>
     </div>
     <div class="gm-viewer-bottom">
@@ -747,6 +749,8 @@ function renderGmPhotos(photos,startIndex){
   const existing=document.getElementById('gm-load-more');
   if(existing)existing.remove();
   if(startIndex+GM_PAGE_SIZE<photos.length){
+    // Preload next batch images in background
+    photos.slice(startIndex+GM_PAGE_SIZE,startIndex+2*GM_PAGE_SIZE).forEach(p=>{new Image().src=p.file;});
     const btn=document.createElement('button');
     btn.id='gm-load-more';
     btn.textContent='Load more ('+(photos.length-startIndex-GM_PAGE_SIZE)+' remaining)';
@@ -787,12 +791,20 @@ window.addEventListener('popstate',()=>{
   activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   document.body.style.overflow='';
 });
-/* Viewer swipe */
+/* Viewer swipe — ignores pinch (multi-touch) */
 (()=>{
-  let tx=0;
-  document.addEventListener('touchstart',e=>{if(document.getElementById('gm-viewer').classList.contains('open'))tx=e.touches[0].clientX;},{passive:true});
+  let tx=0,isMulti=false;
+  document.addEventListener('touchstart',e=>{
+    if(!document.getElementById('gm-viewer').classList.contains('open'))return;
+    if(e.touches.length===1){tx=e.touches[0].clientX;isMulti=false;}
+    else{isMulti=true;}
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    if(document.getElementById('gm-viewer').classList.contains('open')&&e.touches.length>1)isMulti=true;
+  },{passive:true});
   document.addEventListener('touchend',e=>{
     if(!document.getElementById('gm-viewer').classList.contains('open'))return;
+    if(isMulti)return;
     const dx=e.changedTouches[0].clientX-tx;
     if(Math.abs(dx)>40)navViewer(dx<0?1:-1);
   },{passive:true});
