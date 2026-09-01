@@ -797,22 +797,21 @@ window.addEventListener('popstate',()=>{
   activeSlides.forEach(id=>clearInterval(id));activeSlides=[];
   document.body.style.overflow='';
 });
-/* Viewer swipe — ignores pinch (multi-touch) */
+/* Viewer swipe — strictly single-finger only; pinch never navigates */
 (()=>{
-  let tx=0,isMulti=false;
+  let tx=0,maxT=0;
+  const vOpen=()=>document.getElementById('gm-viewer').classList.contains('open');
   document.addEventListener('touchstart',e=>{
-    if(!document.getElementById('gm-viewer').classList.contains('open'))return;
-    if(e.touches.length===1){tx=e.touches[0].clientX;isMulti=false;}
-    else{isMulti=true;}
-  },{passive:true});
-  document.addEventListener('touchmove',e=>{
-    if(document.getElementById('gm-viewer').classList.contains('open')&&e.touches.length>1)isMulti=true;
+    if(!vOpen())return;
+    maxT=Math.max(maxT,e.touches.length);
+    if(e.touches.length===1&&maxT===1)tx=e.touches[0].clientX;
   },{passive:true});
   document.addEventListener('touchend',e=>{
-    if(!document.getElementById('gm-viewer').classList.contains('open'))return;
-    if(isMulti)return;
-    const dx=e.changedTouches[0].clientX-tx;
-    if(Math.abs(dx)>40)navViewer(dx<0?1:-1);
+    if(!vOpen())return;
+    if(e.touches.length===0){
+      if(maxT===1){const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40)navViewer(dx<0?1:-1);}
+      maxT=0;
+    }
   },{passive:true});
 })();
 window.addEventListener('load',()=>{
