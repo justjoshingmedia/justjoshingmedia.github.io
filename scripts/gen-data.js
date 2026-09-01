@@ -8,7 +8,7 @@ const path = require('path');
 const REPO = path.resolve(__dirname, '..');
 const DATA_FILE = path.join(REPO, 'data.json');
 
-const NAS_BASE = 'https://justjoshing615network.us13.ug.link/photos';
+const NAS_BASE = 'https://waiver-contained-eur-strap.trycloudflare.com';
 
 const FOOTBALL_GALLERIES = {
   '2026 HHS Football': { folder: 'images/hhs-football', prefix: 'HHS26', urlFolder: 'hhs-football' },
