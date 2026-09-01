@@ -16,7 +16,8 @@ mkdir -p "$HHS_IMG" "$ELLIS_IMG"
 while true; do
   echo "[sync] $(date): Checking for new photos..."
 
-  git -C "$REPO" pull origin main --quiet
+  git -C "$REPO" fetch origin main --quiet
+  git -C "$REPO" reset --hard origin/main --quiet
 
   # Copy all photos from HHS folder tree, skipping Video subfolders
   find /photos/hhs -not -path '*/Video/*' -type f \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' \) | while read f; do
